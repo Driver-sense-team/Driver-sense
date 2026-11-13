@@ -119,7 +119,7 @@
 ├── data/                법규 룰 테이블 law_table.json (15개 항목). 앱 리포트·Q&A와 엔진 테스트가 같이 쓴다
 ├── server/              Spring 서버 (판정 이벤트 저장, 리포트 API) · 서버 담당
 ├── docs/                기획서, 엔진 명세, 법규 룰 테이블 설명, 작업 순서
-├── apk/                 제출용 release APK
+├── apk/                 제출용 APK 설치 안내 (파일은 Releases)
 ├── settings.gradle.kts  루트 빌드. :engine, :app 두 모듈
 └── CLAUDE.md            엔진 작업 지침 (개발용)
 ```
@@ -158,12 +158,12 @@
 
 ### APK로 실행
 
-제출용 release APK는 [apk/](apk/README.md)에 둔다. 파일 이름은 `팀명_앱이름_release.apk`다.
+제출용 APK는 용량 때문에 [GitHub Releases v0.1](https://github.com/Driver-sense-team/Driver-sense/releases/tag/v0.1)에 있다. 설치 방법은 [apk/](apk/README.md)에 있다.
 
 1. Pleos Connect Emulator를 켠다.
 2. 설치하고 실행한다.
    ```bash
-   adb install -r apk/팀명_앱이름_release.apk
+   adb install -r --user 10 Driver-sense-team_DriverSense_release.apk
    ```
    ```bash
    adb shell am start --user 10 -n kkam.app/.MainActivity
