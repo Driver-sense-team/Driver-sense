@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   경로 데모 목적지 검색 (지도 위, 왼쪽 위). 기어 P에서 데모 패널 "경로 데모"를 누르면 보인다.
-  입력하면 미리 계산한 경로가 있는 목적지 목록(RouteDestinations.kt)을 아래 카드에 보여주고, 누르면 경로 데모를 시작한다.
+  열리면 키보드 없이 "최근 검색" 목록(RouteDestinations.kt의 RECENT_DESTINATIONS)을 아래 카드에 보여주고, 누르면 경로 미리보기로 넘어간다.
   바탕과 줄은 DestinationSearch.kt에서 Ui.kt 헬퍼로 칠한다.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -19,16 +19,15 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp" />
 
-    <EditText
+    <!-- 입력받지 않는 표시용 검색창 (TextView). 눌러도 키보드가 올라오지 않는다. -->
+    <TextView
         android:id="@+id/routeSearchInput"
         android:layout_width="match_parent"
         android:layout_height="88dp"
-        android:hint="@string/route_search_hint"
-        android:imeOptions="actionSearch"
-        android:inputType="text"
+        android:gravity="center_vertical"
         android:paddingHorizontal="32dp"
-        android:textColor="@color/text"
-        android:textColorHint="@color/muted"
+        android:text="@string/route_search_hint"
+        android:textColor="@color/muted"
         android:textSize="@dimen/kk_text_body" />
 
     <LinearLayout

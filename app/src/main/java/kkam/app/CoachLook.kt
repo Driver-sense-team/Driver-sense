@@ -30,8 +30,12 @@ fun CoachState.look(): CardLook = when {
     else -> CardLook.WARN
 }
 
-/** 팝업은 놓침 때 숨으므로(PopupPolicy) 주황·파랑 둘뿐이다. */
-fun PopupTone.look(): CardLook = if (this == PopupTone.OK) CardLook.OK else CardLook.WARN
+/** 팝업 색 → 모습. 판정 지점을 꺼진 채 지나면 빨강, 회전을 마쳐 놓침 판정이 나오면 숨는다 (PopupPolicy). */
+fun PopupTone.look(): CardLook = when (this) {
+    PopupTone.OK -> CardLook.OK
+    PopupTone.WARN -> CardLook.WARN
+    PopupTone.MISS -> CardLook.MISS
+}
 
 /** 행동 알약 아이콘. 상태마다 모양이 다르다. */
 fun CardLook.badgeIconRes(): Int = when (this) {

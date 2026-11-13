@@ -49,6 +49,17 @@ class PopupPolicyTest {
     }
 
     @Test
+    fun `판정 지점(30m)을 꺼진 채 지나면 빨강 "다음엔 미리 켜요"로 바뀐다`() {
+        val (guided, warn) = step(CoachState(), null, frame(TurnSignal.OFF, near), listOf(guide))
+        val (late, miss) = step(guided, warn, frame(TurnSignal.OFF, Tbt(TurnType.LEFT, 25)), emptyList())
+
+        assertEquals(Popup(PopupTone.MISS, GuideKind.TURN_SIGNAL, false, "좌회전", "25 m", "다음엔 미리 켜요", TurnType.LEFT), miss)
+        assertEquals(CardLook.MISS, miss?.tone?.look())
+        // 지나서 깜빡이를 켜도 빨강으로 남는다 (판정 지점에서 색이 고정된다)
+        assertEquals(PopupTone.MISS, step(late, miss, frame(TurnSignal.LEFT, Tbt(TurnType.LEFT, 15)), emptyList()).second?.tone)
+    }
+
+    @Test
     fun `놓침이면 숨기고 지킴이면 파랑으로 바꾼다`() {
         val (guided, warn) = step(CoachState(), null, frame(TurnSignal.OFF, near), listOf(guide))
 
@@ -160,6 +171,8 @@ class PopupPolicyTest {
             Triple(5000L, true, kkam.engine.model.WiperMode.OFF),
             Triple(10000L, true, kkam.engine.model.WiperMode.OFF),
             Triple(13000L, true, kkam.engine.model.WiperMode.ON),
+            // 판정 다음 프레임: 카드는 대기로 돌아가도 "좋아요" 팝업은 남는다 (숨기기는 CoachSession이 몇 초 뒤에)
+            Triple(14000L, true, kkam.engine.model.WiperMode.ON),
         )) {
             val f = frame(TurnSignal.OFF, Tbt(TurnType.STRAIGHT, 900), t = t).copy(speedKph = 50.0, rain = rain, wiper = wiper)
             val outputs = engine.onFrame(f)
@@ -172,6 +185,7 @@ class PopupPolicyTest {
             listOf(
                 Triple(null, null, null),
                 Triple(PopupTone.WARN, "비 오는 중", "와이퍼 켜세요"),
+                Triple(PopupTone.OK, "비 오는 중", "좋아요"),
                 Triple(PopupTone.OK, "비 오는 중", "좋아요"),
             ),
             seen,
@@ -189,7 +203,7 @@ class PopupPolicyTest {
         var state = CoachState()
         var popup: Popup? = null
         val seen = mutableListOf<Triple<PopupTone?, String?, String?>>()
-        for ((t, defroster) in listOf(0L to false, 10000L to false, 14000L to true)) {
+        for ((t, defroster) in listOf(0L to false, 10000L to false, 14000L to true, 15000L to true)) {
             val f = frame(TurnSignal.OFF, Tbt(TurnType.STRAIGHT, 900), t = t).copy(
                 speedKph = 40.0, rain = true, wiper = kkam.engine.model.WiperMode.ON, recirc = true, defroster = defroster,
             )
@@ -203,6 +217,7 @@ class PopupPolicyTest {
             listOf(
                 Triple(null, null, null),
                 Triple(PopupTone.WARN, "김서림 주의", "성에 제거 켜세요"),
+                Triple(PopupTone.OK, "김서림 주의", "좋아요"),
                 Triple(PopupTone.OK, "김서림 주의", "좋아요"),
             ),
             seen,

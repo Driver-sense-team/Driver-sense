@@ -24,12 +24,20 @@ class RouteDestinationsTest {
 
     @Test
     fun `차선 변경 팝업은 각본 시각에만 뜨고 깜빡이를 켜면 파랑이 된다`() {
-        val cue = RouteDemo.LaneCue(showAt = 10_000, okAt = 12_000, hideAt = 17_000)
-        assertEquals(null, laneChangePopup(listOf(cue), 9_000))
-        assertEquals(PopupTone.WARN, laneChangePopup(listOf(cue), 10_000)?.tone)
-        assertEquals(GuideKind.LANE_CHANGE, laneChangePopup(listOf(cue), 11_000)?.kind)
-        assertEquals("좋아요", laneChangePopup(listOf(cue), 12_000)?.headline)
-        assertEquals(null, laneChangePopup(listOf(cue), 17_000))
+        val cue = RouteDemo.ScriptCue(RouteDemo.CueKind.LANE_CHANGE, showAt = 10_000, okAt = 12_000, hideAt = 17_000)
+        assertEquals(null, scriptPopup(listOf(cue), 9_000))
+        assertEquals(PopupTone.WARN, scriptPopup(listOf(cue), 10_000)?.tone)
+        assertEquals(GuideKind.LANE_CHANGE, scriptPopup(listOf(cue), 11_000)?.kind)
+        assertEquals("좋아요", scriptPopup(listOf(cue), 12_000)?.headline)
+        assertEquals(null, scriptPopup(listOf(cue), 17_000))
+    }
+
+    @Test
+    fun `파랑이 없는 각본 카드(급정거)는 숨길 때까지 주황이다`() {
+        val cue = RouteDemo.ScriptCue(RouteDemo.CueKind.SUDDEN_STOP, showAt = 10_000, okAt = null, hideAt = 15_000)
+        assertEquals(Popup(PopupTone.WARN, GuideKind.BRAKE, true, "급정거", "", "앞차와 거리를 두세요"), scriptPopup(listOf(cue), 14_000))
+        assertEquals("방금 급하게 멈췄어요, 앞차와 거리를 넉넉히 두세요", scriptSpeech(listOf(cue), 10_000))
+        assertEquals(null, scriptSpeech(listOf(cue), 11_000))
     }
 
     @Test

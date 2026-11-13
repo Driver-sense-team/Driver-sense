@@ -51,6 +51,12 @@ fun NaviTurnType.toEngineTurnType(): TurnType = when (this) {
     NaviTurnType.TURN_ENTER_IC_L, NaviTurnType.TURN_EXIT_IC_L -> TurnType.RAMP_LEFT
     NaviTurnType.TURN_ENTER_IC_R, NaviTurnType.TURN_EXIT_IC_R -> TurnType.RAMP_RIGHT
     NaviTurnType.TURN_TUNNEL -> TurnType.TUNNEL
+    // 회전교차로 진입. 숫자는 나갈 출구의 시계 방향이고 엔진은 쓰지 않는다 (spec 14장)
+    NaviTurnType.TURN_ENTER_ROUNDABOUT_02, NaviTurnType.TURN_ENTER_ROUNDABOUT_03, NaviTurnType.TURN_ENTER_ROUNDABOUT_04,
+    NaviTurnType.TURN_ENTER_ROUNDABOUT_06, NaviTurnType.TURN_ENTER_ROUNDABOUT_08, NaviTurnType.TURN_ENTER_ROUNDABOUT_09,
+    NaviTurnType.TURN_ENTER_ROUNDABOUT_10, NaviTurnType.TURN_ENTER_ROUNDABOUT_12,
+    -> TurnType.ROUNDABOUT_ENTER
+    NaviTurnType.TURN_EXIT_ROUNDABOUT -> TurnType.ROUNDABOUT_EXIT
     else -> TurnType.OTHER // TURN_KEEP_*, 방향 없는 IC(TURN_*_IC_C) 등
 }
 

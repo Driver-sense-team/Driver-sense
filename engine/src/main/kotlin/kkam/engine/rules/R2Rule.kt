@@ -17,6 +17,9 @@ const val R2_SIGNAL_LOOKBACK_MS = 5000L
 const val R2_REVERSE_SKIP_MS = 30000L
 const val R2_OTHER_RULE_SKIP_MS = 10000L
 
+/** R1·R8이 내비 안내로 보는 회전. 이 안내가 100m 안이면 R2는 판정하지 않는다 (spec 11.3 #2). */
+private val NAVI_TURNS = setOf(TurnType.LEFT, TurnType.RIGHT, TurnType.ROUNDABOUT_ENTER, TurnType.ROUNDABOUT_EXIT)
+
 /**
  * R2: 깜빡이 없이 회전 (spec 11장).
  *
@@ -36,9 +39,9 @@ class R2Rule(private val nextEventId: () -> String) {
 
     /** 다른 룰이 지금 이 회전을 보고 있는지 알려주는 값. 엔진이 채워 넘긴다. */
     data class OtherRules(
-        /** R1이 IDLE이 아니면 true (회전에 다가가거나 회전 중) */
+        /** R1이나 R8이 IDLE이 아니면 true (회전·회전교차로에 다가가거나 회전 중) */
         val r1Active: Boolean,
-        /** 마지막으로 R1·R4가 EVENT를 낸 프레임의 t. 이 프레임 것도 포함한다. 없으면 null */
+        /** 마지막으로 R1·R4·R8이 EVENT를 낸 프레임의 t. R1·R4는 이 프레임 것도 포함한다. 없으면 null */
         val lastEventT: Long?,
     )
 
@@ -103,8 +106,8 @@ class R2Rule(private val nextEventId: () -> String) {
     /** spec 11.3 #2의 "다른 룰이 이 회전을 본다". */
     private fun otherRuleWatches(frame: SignalFrame, others: OtherRules): Boolean {
         val tbt = frame.tbt
-        val turnNear = tbt != null && (tbt.turn == TurnType.LEFT || tbt.turn == TurnType.RIGHT) &&
-            tbt.distanceM <= APPROACH_START_M
+        // 회전교차로 진입·진출 안내도 R8이 보는 회전이다 (spec 14.3)
+        val turnNear = tbt != null && tbt.turn in NAVI_TURNS && tbt.distanceM <= APPROACH_START_M
         val rampNear = tbt != null && (tbt.turn == TurnType.RAMP_LEFT || tbt.turn == TurnType.RAMP_RIGHT) &&
             tbt.distanceM <= LANE_START_M
         val recentEvent = others.lastEventT?.let { frame.t - it < R2_OTHER_RULE_SKIP_MS } == true

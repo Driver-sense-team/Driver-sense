@@ -2,7 +2,8 @@
 <!--
   오늘 주행 리포트 (기획서 UI-2). 기어 P일 때만 보인다.
   배경은 다른 화면처럼 앱 바탕(bg)을 그대로 쓴다. 읽는 순서대로 위에서 아래로 쌓는다.
-    1. 제목 + 핵심 요약 한 줄 (오른쪽: "AI에게 묻기")
+    0. 기간 전환: 일 / 월 / 연도 칩 + 이전·다음 기간 화살표 (ReportScreen.kt가 칠한다)
+    1. 제목 + 핵심 요약 한 줄 (오른쪽: "AI에게 묻기"). 제목은 기간에 맞게 바뀐다 (예: "이번 달 주행 리포트")
     2. 요약 수치 카드 3개: 지킴, 놓침, 아낀 범칙금 (report_stat.xml)
     3. 판정 기록 리스트: 한 카드 안에 줄마다 시간 | 상황 | 결과 칩, 아래 조항·처분 (report_item.xml)
   카드 배경(surface)은 ReportScreen.kt에서 Ui.kt의 cardBackground()로 칠한다.
@@ -13,16 +14,86 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingHorizontal="48dp"
-    android:paddingTop="40dp"
+    android:paddingTop="32dp"
     android:paddingBottom="@dimen/kk_screen_padding"
     android:visibility="gone">
 
-    <!-- ===== 1. 제목 + 핵심 요약 ===== -->
+    <!-- ===== 0. 기간 전환 ===== -->
     <!-- marginEnd: 오른쪽 위 "데모" 버튼(debug 빌드) 자리를 비운다 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="96dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!-- 일 / 월 / 연도. 고른 칩만 흰 바탕(surface)으로 칠한다. 바깥 바탕은 surface_2. -->
+        <LinearLayout
+            android:id="@+id/reportPeriodTabs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <TextView
+                android:id="@+id/reportPeriodDay"
+                style="@style/Kk.Pill"
+                android:minWidth="112dp"
+                android:text="@string/report_period_day" />
+
+            <TextView
+                android:id="@+id/reportPeriodMonth"
+                style="@style/Kk.Pill"
+                android:minWidth="112dp"
+                android:text="@string/report_period_month" />
+
+            <TextView
+                android:id="@+id/reportPeriodYear"
+                style="@style/Kk.Pill"
+                android:minWidth="112dp"
+                android:text="@string/report_period_year" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- 이전 기간 · 기간 이름 · 다음 기간. 오늘이 든 기간이면 다음 화살표를 흐리게 하고 누를 수 없다. -->
+        <TextView
+            android:id="@+id/reportPrev"
+            style="@style/Kk.Pill"
+            android:layout_width="64dp"
+            android:paddingHorizontal="0dp"
+            android:contentDescription="@string/report_prev"
+            android:text="‹"
+            android:textSize="@dimen/kk_text_body" />
+
+        <TextView
+            android:id="@+id/reportRange"
+            style="@style/Kk.Body"
+            android:layout_marginHorizontal="@dimen/kk_gap"
+            android:minWidth="200dp"
+            android:gravity="center"
+            android:fontFeatureSettings="tnum"
+            android:textColor="@color/text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/reportNext"
+            style="@style/Kk.Pill"
+            android:layout_width="64dp"
+            android:paddingHorizontal="0dp"
+            android:contentDescription="@string/report_next"
+            android:text="›"
+            android:textSize="@dimen/kk_text_body" />
+    </LinearLayout>
+
+    <!-- ===== 1. 제목 + 핵심 요약 ===== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -33,6 +104,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/reportTitle"
                 style="@style/Kk.Title"
                 android:text="@string/report_title"
                 android:textColor="@color/text" />
@@ -57,7 +129,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="28dp"
         android:baselineAligned="false"
         android:orientation="horizontal">
 
@@ -86,7 +158,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="32dp"
         android:gravity="bottom"
         android:orientation="horizontal">
 
@@ -143,6 +215,7 @@
                 android:tint="@color/muted" />
 
             <TextView
+                android:id="@+id/reportEmptyTitle"
                 style="@style/Kk.Body"
                 android:layout_marginTop="@dimen/kk_gap_large"
                 android:text="@string/report_empty"

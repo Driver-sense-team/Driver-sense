@@ -65,6 +65,10 @@ class SdkMappingTest {
         assertEquals(TurnType.RAMP_RIGHT, NaviTurnType.TURN_EXIT_IC_R.toEngineTurnType())
         assertEquals(TurnType.OTHER, NaviTurnType.TURN_EXIT_IC_C.toEngineTurnType())
         assertEquals(TurnType.TUNNEL, NaviTurnType.TURN_TUNNEL.toEngineTurnType())
+        // 회전교차로: 진입은 출구 방향 숫자와 상관없이 하나로, 진출은 따로 (spec 14장)
+        assertEquals(TurnType.ROUNDABOUT_ENTER, NaviTurnType.TURN_ENTER_ROUNDABOUT_02.toEngineTurnType())
+        assertEquals(TurnType.ROUNDABOUT_ENTER, NaviTurnType.TURN_ENTER_ROUNDABOUT_12.toEngineTurnType())
+        assertEquals(TurnType.ROUNDABOUT_EXIT, NaviTurnType.TURN_EXIT_ROUNDABOUT.toEngineTurnType())
     }
 
     @Test

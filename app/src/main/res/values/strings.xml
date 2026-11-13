@@ -8,6 +8,13 @@
     <string name="report_missed">놓침</string>
     <string name="report_empty">오늘은 아직 판정이 없어요</string>
     <string name="report_ask">AI에게 묻기 · 준비 중</string>
+    <!-- 리포트 기간 전환 (일·월·연도). 제목·범칙금 라벨처럼 날짜가 들어가는 문구는 ReportPeriod.kt가 만든다. -->
+    <string name="report_period_day">일</string>
+    <string name="report_period_month">월</string>
+    <string name="report_period_year">연도</string>
+    <string name="report_prev">이전 기간</string>
+    <string name="report_next">다음 기간</string>
+    <string name="report_summary_empty_past">이 기간에는 판정 기록이 없어요</string>
 
     <!-- 진단 리포트 (기어 P) -->
     <string name="diagnose_title">진단 리포트</string>
@@ -42,7 +49,7 @@
     <string name="service_running">주행 안내를 준비하고 있어요</string>
 
     <!-- 기어 P 화면 왼쪽 레일 -->
-    <string name="nav_report">오늘 리포트</string>
+    <string name="nav_report">주행 리포트</string>
     <string name="nav_diagnose">진단</string>
     <string name="nav_progress">교정 진행</string>
     <string name="nav_qna">법규 Q&amp;A</string>

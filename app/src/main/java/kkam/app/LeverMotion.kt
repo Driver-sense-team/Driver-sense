@@ -34,6 +34,12 @@ enum class LeverMotion(
  */
 fun leverMotion(kind: GuideKind, right: Boolean): LeverMotion? = when (kind) {
     GuideKind.TURN_SIGNAL -> if (right) LeverMotion.LEFT_UP else LeverMotion.LEFT_DOWN
+    // 유턴은 늘 왼쪽 깜빡이
+    GuideKind.UTURN -> LeverMotion.LEFT_DOWN
+    // 회전교차로에서 나갈 때는 오른쪽 깜빡이
+    GuideKind.ROUNDABOUT -> if (right) LeverMotion.LEFT_UP else LeverMotion.LEFT_DOWN
+    // 속도·브레이크는 레버가 아니라 페달이다
+    GuideKind.SPEED, GuideKind.BRAKE -> null
     GuideKind.LANE_CHANGE -> if (right) LeverMotion.LEFT_TAP_UP else LeverMotion.LEFT_TAP_DOWN
     GuideKind.HEADLIGHT -> LeverMotion.LEFT_TWIST
     GuideKind.WIPER -> LeverMotion.RIGHT_DOWN

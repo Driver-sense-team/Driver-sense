@@ -1,27 +1,27 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1280" height="440" viewBox="0 0 1280 440" role="img" aria-label="구조: Pleos SDK, 차량 앱 안의 판정 엔진, Spring 서버">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0E1B33"/>
-      <stop offset="1" stop-color="#123A8C"/>
+      <stop offset="0" stop-color="#123A8C"/>
+      <stop offset="1" stop-color="#1F5FD1"/>
     </linearGradient>
     <filter id="sh" x="-10%" y="-10%" width="120%" height="130%">
-      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.35"/>
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#0E2A5E" flood-opacity="0.08"/>
     </filter>
     <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M0 0 L10 5 L0 10 z" fill="#FFFFFF"/>
+      <path d="M0 0 L10 5 L0 10 z" fill="#1F5FD1"/>
     </marker>
     <marker id="aw" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M0 0 L10 5 L0 10 z" fill="#FFC04D"/>
+      <path d="M0 0 L10 5 L0 10 z" fill="#1F5FD1"/>
     </marker>
     <marker id="ag" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M0 0 L10 5 L0 10 z" fill="#22C55E"/>
+      <path d="M0 0 L10 5 L0 10 z" fill="#1F5FD1"/>
     </marker>
     <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M0 0 L10 5 L0 10 z" fill="#FF6B6B"/>
+      <path d="M0 0 L10 5 L0 10 z" fill="#1F5FD1"/>
     </marker>
   </defs>
   <style>
-    text { font-family: Pretendard, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Segoe UI", sans-serif; fill: #111418; }
+    text { font-family: Pretendard, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Segoe UI", sans-serif; fill: #0E2A5E; }
     .h { font-size: 22px; font-weight: 800; }
     .s { font-size: 15px; font-weight: 600; }
     .b { font-size: 17px; font-weight: 800; }
@@ -30,11 +30,11 @@
     .wh { fill: #FFFFFF; }
   </style>
 
-  <rect width="1280" height="440" rx="24" fill="url(#bg)"/>
+  <rect x="1" y="1" width="1278" height="438" rx="24" fill="#FFFFFF" stroke="#D5E3FB" stroke-width="2"/>
 
   <!-- Pleos SDK (파랑) -->
   <g transform="translate(40 70)" filter="url(#sh)">
-    <rect width="220" height="300" rx="18" fill="#4C8DFF"/>
+    <rect width="220" height="300" rx="18" fill="#F3F7FE" stroke="#CFE0FF" stroke-width="2"/>
     <text x="24" y="44" class="h">Pleos SDK</text>
     <text x="24" y="68" class="s">차량 신호와 음성</text>
     <rect x="20" y="92" width="180" height="40" rx="10" fill="#FFFFFF"/>
@@ -49,29 +49,29 @@
 
   <!-- 차량 앱 -->
   <g transform="translate(320 30)">
-    <rect width="650" height="380" rx="22" fill="#FFFFFF" fill-opacity="0.08" stroke="#FFFFFF" stroke-opacity="0.45" stroke-width="2"/>
-    <text x="28" y="44" class="h wh">app/ 차량 앱</text>
-    <text x="168" y="44" class="mono" style="fill:#C9D9F7">kkam.app · Android Automotive</text>
+    <rect width="650" height="380" rx="22" fill="#FFFFFF" stroke="#4C8DFF" stroke-width="2" stroke-dasharray="0"/>
+    <text x="28" y="44" class="h">app/ 차량 앱</text>
+    <text x="168" y="44" class="mono" style="fill:#566173">kkam.app · Android Automotive</text>
 
     <!-- 신호 수집 (하늘) -->
     <g filter="url(#sh)">
-      <rect x="28" y="96" width="160" height="96" rx="14" fill="#E7EFFC"/>
+      <rect x="28" y="96" width="160" height="96" rx="14" fill="#F3F7FE" stroke="#CFE0FF" stroke-width="2"/>
       <text x="108" y="138" text-anchor="middle" class="b">신호 수집</text>
       <text x="108" y="162" text-anchor="middle" class="s">1초마다 한 프레임</text>
     </g>
 
     <!-- 판정 엔진 (흰 카드 + 노랑 테두리) -->
     <g filter="url(#sh)">
-      <rect x="232" y="80" width="190" height="128" rx="16" fill="#FFFFFF" stroke="#FFC04D" stroke-width="5"/>
-      <text x="327" y="120" text-anchor="middle" font-size="21" font-weight="800">판정 엔진</text>
-      <text x="327" y="146" text-anchor="middle" class="s" style="fill:#566173">engine/ · 순수 Kotlin</text>
-      <rect x="262" y="158" width="130" height="30" rx="15" fill="#1F5FD1"/>
+      <rect x="232" y="80" width="190" height="128" rx="16" fill="#1F5FD1"/>
+      <text x="327" y="120" text-anchor="middle" font-size="21" font-weight="800" class="wh">판정 엔진</text>
+      <text x="327" y="146" text-anchor="middle" class="s" style="fill:#CFE0FF">engine/ · 순수 Kotlin</text>
+      <rect x="262" y="158" width="130" height="30" rx="15" fill="#0E2A5E"/>
       <text x="327" y="179" text-anchor="middle" font-size="15" font-weight="800" class="wh">R1~R7 상태 머신</text>
     </g>
 
     <!-- 음성 안내 (노랑) -->
     <g filter="url(#sh)">
-      <rect x="468" y="62" width="158" height="112" rx="14" fill="#FFC04D"/>
+      <rect x="468" y="62" width="158" height="112" rx="14" fill="#F3F7FE" stroke="#CFE0FF" stroke-width="2"/>
       <text x="547" y="98" text-anchor="middle" class="b">음성 안내</text>
       <text x="547" y="124" text-anchor="middle" class="s">Pleos TTS로 읽기</text>
       <text x="547" y="148" text-anchor="middle" class="s">코치 카드 · 팝업</text>
@@ -79,40 +79,40 @@
 
     <!-- 리포트 (초록) -->
     <g filter="url(#sh)">
-      <rect x="468" y="210" width="158" height="96" rx="14" fill="#22C55E"/>
+      <rect x="468" y="210" width="158" height="96" rx="14" fill="#F3F7FE" stroke="#CFE0FF" stroke-width="2"/>
       <text x="547" y="248" text-anchor="middle" class="b">리포트</text>
       <text x="547" y="274" text-anchor="middle" class="s">법규 Q&amp;A · 기록</text>
     </g>
 
     <!-- 법규 룰 테이블 (빨강) -->
     <g transform="translate(232 262)" filter="url(#sh)">
-      <path d="M0 12 V68 A95 12 0 0 0 190 68 V12" fill="#FF6B6B"/>
-      <ellipse cx="95" cy="12" rx="95" ry="12" fill="#FF9A9A"/>
+      <path d="M0 12 V68 A95 12 0 0 0 190 68 V12" fill="#E7EFFC"/>
+      <ellipse cx="95" cy="12" rx="95" ry="12" fill="#CFE0FF"/>
       <text x="95" y="50" text-anchor="middle" class="b">법규 룰 테이블</text>
       <text x="95" y="72" text-anchor="middle" class="mono">data/law_table.json</text>
     </g>
 
     <!-- 앱 안 화살표 -->
-    <line x1="190" y1="144" x2="228" y2="144" stroke="#FFFFFF" stroke-width="3" marker-end="url(#a)"/>
-    <path d="M426 120 C444 120 446 118 464 118" fill="none" stroke="#FFC04D" stroke-width="3.5" marker-end="url(#aw)"/>
-    <text x="424" y="106" class="lab" style="fill:#FFC04D">GUIDE</text>
-    <path d="M426 176 C446 176 446 252 464 252" fill="none" stroke="#22C55E" stroke-width="3.5" marker-end="url(#ag)"/>
-    <text x="398" y="236" class="lab" style="fill:#22C55E">EVENT</text>
-    <path d="M424 304 C446 304 446 290 464 290" fill="none" stroke="#FF6B6B" stroke-width="3" marker-end="url(#ar)"/>
+    <line x1="190" y1="144" x2="228" y2="144" stroke="#1F5FD1" stroke-width="3" marker-end="url(#a)"/>
+    <path d="M426 120 C444 120 446 118 464 118" fill="none" stroke="#1F5FD1" stroke-width="3" marker-end="url(#aw)"/>
+    <text x="424" y="106" class="lab" style="fill:#1F5FD1">GUIDE</text>
+    <path d="M426 176 C446 176 446 252 464 252" fill="none" stroke="#1F5FD1" stroke-width="3" marker-end="url(#ag)"/>
+    <text x="398" y="236" class="lab" style="fill:#1F5FD1">EVENT</text>
+    <path d="M424 304 C446 304 446 290 464 290" fill="none" stroke="#1F5FD1" stroke-width="3" marker-end="url(#ar)"/>
   </g>
 
   <!-- SDK → 앱 -->
-  <line x1="262" y1="174" x2="344" y2="174" stroke="#FFFFFF" stroke-width="3" marker-end="url(#a)"/>
-  <text x="270" y="160" class="lab wh">신호</text>
+  <line x1="262" y1="174" x2="344" y2="174" stroke="#1F5FD1" stroke-width="3" marker-end="url(#a)"/>
+  <text x="270" y="160" class="lab" style="fill:#1F5FD1">신호</text>
 
   <!-- 서버 (연결 전) -->
   <g transform="translate(1020 150)">
-    <rect width="220" height="150" rx="18" fill="#FFFFFF" fill-opacity="0.06" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="2" stroke-dasharray="8 6"/>
-    <text x="24" y="44" class="h wh">server/</text>
-    <text x="24" y="72" class="b wh">Spring 서버</text>
-    <text x="24" y="100" class="s" style="fill:#C9D9F7">판정 이벤트 저장,</text>
-    <text x="24" y="122" class="s" style="fill:#C9D9F7">리포트 API (연결 전)</text>
+    <rect width="220" height="150" rx="18" fill="#FFFFFF" stroke="#4C8DFF" stroke-width="2" stroke-dasharray="8 6"/>
+    <text x="24" y="44" class="h">server/</text>
+    <text x="24" y="72" class="b">Spring 서버</text>
+    <text x="24" y="100" class="s" style="fill:#566173">판정 이벤트 저장,</text>
+    <text x="24" y="122" class="s" style="fill:#566173">리포트 API (연결 전)</text>
   </g>
-  <line x1="948" y1="288" x2="1014" y2="250" stroke="#FFFFFF" stroke-opacity="0.7" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#a)"/>
-  <text x="972" y="300" class="lab" style="fill:#C9D9F7">계획</text>
+  <line x1="948" y1="288" x2="1014" y2="250" stroke="#4C8DFF" stroke-width="2.5" stroke-dasharray="7 6" marker-end="url(#a)"/>
+  <text x="972" y="300" class="lab" style="fill:#4C8DFF">계획</text>
 </svg>

@@ -1,0 +1,23 @@
+{
+  "name": "S31_회전교차로_진출때_안켬",
+  "description": "진입은 처음부터 왼쪽 깜빡이(안내 없이 지킴), 나갈 때는 안내를 듣고도 오른쪽 깜빡이를 안 켬. R8 진입 지킴, 진출 놓침.",
+  "expect": [
+    {"type": "EVENT", "t": 8000, "rule": "R8", "result": "KEPT", "guided": false},
+    {"type": "GUIDE", "t": 9000, "rule": "R8"},
+    {"type": "EVENT", "t": 12000, "rule": "R8", "result": "MISSED", "guided": true}
+  ],
+  "frames": [
+    {"t": 0, "speedKph": 40.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.55, "lon": 127.07, "headingDeg": 0.0, "tbt": {"turn": "ROUNDABOUT_ENTER", "distanceM": 120}, "light": null},
+    {"t": 2000, "speedKph": 36.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.5501, "lon": 127.0701, "headingDeg": 0.0, "tbt": {"turn": "ROUNDABOUT_ENTER", "distanceM": 90}, "light": null},
+    {"t": 4000, "speedKph": 30.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.5502, "lon": 127.0702, "headingDeg": 0.0, "tbt": {"turn": "ROUNDABOUT_ENTER", "distanceM": 60}, "light": null},
+    {"t": 5000, "speedKph": 25.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.5503, "lon": 127.0703, "headingDeg": 0.0, "tbt": {"turn": "ROUNDABOUT_ENTER", "distanceM": 45}, "light": null},
+    {"t": 6000, "speedKph": 22.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.5504, "lon": 127.0704, "headingDeg": 0.0, "tbt": {"turn": "ROUNDABOUT_ENTER", "distanceM": 28}, "light": null},
+    {"t": 7000, "speedKph": 20.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.5505, "lon": 127.0705, "headingDeg": 330.0, "tbt": {"turn": "ROUNDABOUT_ENTER", "distanceM": 12}, "light": null},
+    {"t": 8000, "speedKph": 20.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.5506, "lon": 127.0706, "headingDeg": 300.0, "tbt": {"turn": "ROUNDABOUT_EXIT", "distanceM": 40}, "light": null},
+    {"t": 9000, "speedKph": 20.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.5507, "lon": 127.0707, "headingDeg": 240.0, "tbt": {"turn": "ROUNDABOUT_EXIT", "distanceM": 25}, "light": null},
+    {"t": 10000, "speedKph": 20.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.5508, "lon": 127.0708, "headingDeg": 180.0, "tbt": {"turn": "ROUNDABOUT_EXIT", "distanceM": 15}, "light": null},
+    {"t": 11000, "speedKph": 20.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.5509, "lon": 127.0709, "headingDeg": 120.0, "tbt": {"turn": "ROUNDABOUT_EXIT", "distanceM": 8}, "light": null},
+    {"t": 12000, "speedKph": 22.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.551, "lon": 127.071, "headingDeg": 90.0, "tbt": {"turn": "STRAIGHT", "distanceM": 500}, "light": null},
+    {"t": 14000, "speedKph": 25.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.5511, "lon": 127.0711, "headingDeg": 90.0, "tbt": {"turn": "STRAIGHT", "distanceM": 480}, "light": null}
+  ]
+}

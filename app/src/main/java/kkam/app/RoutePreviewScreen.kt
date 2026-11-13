@@ -1,15 +1,16 @@
 package kkam.app
 
 import android.app.Activity
-import android.util.TypedValue
 import android.view.View
-import android.widget.LinearLayout
 import android.widget.TextView
+import java.time.LocalTime
 
 /**
  * 경로 미리보기 (screen_route_preview.xml). 출발 전 기어 P에서만 보인다.
+ * 보통 내비의 경로 요약처럼 목적지, 예상 소요 시간, 거리, 도착 예정 시각을 크게 보여주고,
+ * 코치 정보는 그 아래 한 줄로 둔다.
  * 누를 것은 경로 데모의 "출발" 하나뿐이다 (실제 내비 경로에서는 숨기고 기어 D로 출발한다).
- * 값은 [buildRoutePreview]에서만 온다.
+ * 값은 [buildRoutePreview]에서만 온다. 도착 시각만 지금 시각으로 계산한다 (판정 엔진이 아니라 화면이라 시각을 써도 된다).
  */
 class RoutePreviewScreen(
     private val activity: Activity,
@@ -22,20 +23,15 @@ class RoutePreviewScreen(
     private val hint: View = activity.findViewById(R.id.routePreviewHint)
     private val root: View = activity.findViewById(R.id.routePreviewScreen)
     private val destination: TextView = activity.findViewById(R.id.routeDestination)
-    private val points: TextView = activity.findViewById(R.id.routePoints)
-    private val counts: LinearLayout = activity.findViewById(R.id.routeCounts)
-    private val weakSource: TextView = activity.findViewById(R.id.routeWeakSource)
-    private val weakLabel: TextView = activity.findViewById(R.id.routeWeakLabel)
-    private val weakDetail: TextView = activity.findViewById(R.id.routeWeakDetail)
-    private val sequence: TextView = activity.findViewById(R.id.routeSequence)
+    private val duration: TextView = activity.findViewById(R.id.routeDuration)
+    private val distanceEta: TextView = activity.findViewById(R.id.routeDistanceEta)
+    private val coachLine: TextView = activity.findViewById(R.id.routeCoachLine)
 
-    /** 마지막으로 그린 미리보기. 같으면 다시 그리지 않는다. */
-    private var drawn: RoutePreview? = null
+    /** 마지막으로 그린 미리보기와 도착 시각 문구. 같으면 다시 그리지 않는다. */
+    private var drawn: Pair<RoutePreview, String>? = null
 
     init {
-        activity.findViewById<View>(R.id.routePointsCard).background = activity.cardBackground()
-        activity.findViewById<View>(R.id.routeWeakCard).background = activity.cardBackground(activity.getColor(R.color.warn_soft))
-        activity.findViewById<View>(R.id.routeSequenceCard).background = activity.cardBackground()
+        activity.findViewById<View>(R.id.routeSummaryCard).background = activity.cardBackground()
         depart.background = activity.pillBackground(activity.getColor(R.color.ok))
         depart.setOnClickListener { onDepart() }
     }
@@ -54,70 +50,27 @@ class RoutePreviewScreen(
         val trip = state.route ?: return
         // 경로를 붙인 뒤의 판정은 미리보기에 넣지 않는다 (출발 전 기록만 본다).
         val preview = buildRoutePreview(trip.plan, state.todayEvents.take(trip.firstEventIndex), diagnosis())
-        if (preview == drawn) return
-        drawn = preview
-        draw(preview)
+        val eta = preview.minutes?.let { arrivalLabel(LocalTime.now(), it) } ?: ""
+        if (drawn == preview to eta) return
+        drawn = preview to eta
+        draw(preview, eta)
     }
 
-    private fun draw(preview: RoutePreview) {
-        destination.text = if (preview.distanceLabel.isEmpty()) {
-            activity.getString(R.string.route_preview_destination_only, preview.destination)
-        } else {
-            activity.getString(R.string.route_preview_destination, preview.destination, preview.distanceLabel)
-        }
+    private fun draw(preview: RoutePreview, eta: String) {
+        destination.text = preview.destination
 
-        // 숫자는 크게, 회전이 없을 때 문장은 본문 크기로
-        if (preview.coachPoints == 0) {
-            points.setTextSize(TypedValue.COMPLEX_UNIT_PX, activity.resources.getDimension(R.dimen.kk_text_body))
-            points.text = activity.getString(R.string.route_preview_no_points)
-        } else {
-            points.setTextSize(TypedValue.COMPLEX_UNIT_PX, activity.resources.getDimension(R.dimen.kk_text_display))
-            points.text = numberEmphasis(activity.getString(R.string.route_preview_points_count, preview.coachPoints))
+        val minutes = preview.minutes
+        duration.text = if (minutes == null) activity.getString(R.string.route_preview_no_time) else durationLabel(minutes)
+        distanceEta.text = listOf(preview.distanceLabel, eta).filter { it.isNotEmpty() }.let { parts ->
+            if (parts.size == 2) activity.getString(R.string.route_preview_distance_eta, parts[0], parts[1]) else parts.joinToString("")
         }
-        counts.removeAllViews()
-        preview.counts.forEach(::addChip)
 
         val weak = preview.weakSpot
-        weakSource.setText(
-            when {
-                weak == null -> R.string.route_preview_weak_none
-                weak.fromToday -> R.string.route_preview_weak_today
-                else -> R.string.route_preview_weak_diagnosis
-            },
-        )
-        weakLabel.text = weak?.label ?: activity.getString(R.string.route_preview_weak_empty)
-        weakDetail.text = when {
-            weak == null -> ""
-            preview.weakOnRoute == 0 -> activity.getString(R.string.route_preview_weak_not_on_route)
-            else -> activity.getString(R.string.route_preview_weak_on_route, preview.weakOnRoute)
+        coachLine.text = when {
+            preview.coachPoints == 0 -> activity.getString(R.string.route_preview_coach_none)
+            weak != null && preview.weakOnRoute > 0 ->
+                activity.getString(R.string.route_preview_coach_weak, preview.coachPoints, weak.label, preview.weakOnRoute)
+            else -> activity.getString(R.string.route_preview_coach, preview.coachPoints)
         }
-
-        val stops = listOf(activity.getString(R.string.route_preview_start)) + preview.sequence +
-            activity.getString(R.string.route_preview_end)
-        sequence.text = stops.joinToString("  →  ")
-    }
-
-    /** 종류별 개수 칩. 예: "좌회전 2" */
-    private fun addChip(label: String) {
-        val chip = TextView(activity).apply {
-            text = label
-            textSize = CHIP_TEXT_SP
-            setTextColor(activity.getColor(R.color.text))
-            background = activity.pillBackground(activity.getColor(R.color.surface_2))
-            setPadding(activity.dp(CHIP_PAD_H_DP), activity.dp(CHIP_PAD_V_DP), activity.dp(CHIP_PAD_H_DP), activity.dp(CHIP_PAD_V_DP))
-        }
-        counts.addView(
-            chip,
-            LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
-                marginEnd = activity.dp(CHIP_GAP_DP)
-            },
-        )
-    }
-
-    private companion object {
-        const val CHIP_TEXT_SP = 22f
-        const val CHIP_PAD_H_DP = 20
-        const val CHIP_PAD_V_DP = 10
-        const val CHIP_GAP_DP = 12
     }
 }

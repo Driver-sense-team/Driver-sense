@@ -6,12 +6,12 @@
       <stop offset="1" stop-color="#4C8DFF"/>
     </linearGradient>
     <radialGradient id="glowWarn" cx="0.5" cy="0.5" r="0.5">
-      <stop offset="0" stop-color="#FFC04D" stop-opacity="0.55"/>
-      <stop offset="1" stop-color="#FFC04D" stop-opacity="0"/>
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
     </radialGradient>
     <clipPath id="frame"><rect width="1280" height="360" rx="28"/></clipPath>
     <filter id="shadow" x="-10%" y="-10%" width="120%" height="140%">
-      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0A1F4D" flood-opacity="0.45"/>
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0E2A5E" flood-opacity="0.16"/>
     </filter>
   </defs>
   <style>
@@ -19,27 +19,27 @@
   </style>
 
   <g clip-path="url(#frame)">
-    <rect width="1280" height="360" fill="url(#bg)"/>
+    <rect width="1280" height="360" fill="#FFFFFF"/>
     <!-- 도로 느낌의 띠와 차선 -->
-    <path d="M640 360 L860 0 H1080 L900 360 Z" fill="#FFFFFF" opacity="0.08"/>
-    <path d="M770 360 L970 0" stroke="#FFFFFF" stroke-width="6" stroke-dasharray="34 28" opacity="0.35"/>
-    <circle cx="960" cy="110" r="230" fill="url(#glowWarn)"/>
-    <circle cx="120" cy="360" r="190" fill="#FFFFFF" opacity="0.06"/>
-    <circle cx="1240" cy="20" r="120" fill="#FFFFFF" opacity="0.07"/>
+    <path d="M640 360 L860 0 H1080 L900 360 Z" fill="#EEF4FF"/>
+    <path d="M770 360 L970 0" stroke="#CFE0FF" stroke-width="6" stroke-dasharray="34 28"/>
+        <circle cx="120" cy="360" r="190" fill="#F3F7FE"/>
+    <circle cx="1240" cy="20" r="120" fill="#F3F7FE"/>
   </g>
+  <rect x="1" y="1" width="1278" height="358" rx="27" fill="none" stroke="#D5E3FB" stroke-width="2"/>
 
   <!-- 왼쪽: 이름과 소개 -->
   <g transform="translate(72 0)">
-    <rect x="0" y="80" width="150" height="36" rx="18" fill="#FFC04D"/>
-    <text x="75" y="104" text-anchor="middle" font-size="17" font-weight="800" fill="#111418">PLEOS CONNECT</text>
-    <text x="0" y="192" font-size="78" font-weight="800" fill="#FFFFFF" letter-spacing="-1">Driver Sense</text>
-    <text x="2" y="242" font-size="32" font-weight="800" fill="#FFC04D">차 안에 나만의 선생님.</text>
-    <text x="2" y="284" font-size="19" font-weight="500" fill="#E7EFFC">차량 신호로 운전 법규 습관을 진단하고, 놓치기 쉬운 순간을</text>
-    <text x="2" y="312" font-size="19" font-weight="500" fill="#E7EFFC">음성 한 문장과 작은 카드로 미리 알려주는 차량용 앱</text>
+    <rect x="0" y="80" width="150" height="36" rx="18" fill="#E7EFFC"/>
+    <text x="75" y="104" text-anchor="middle" font-size="17" font-weight="800" fill="#1F5FD1">PLEOS CONNECT</text>
+    <text x="0" y="192" font-size="78" font-weight="800" fill="#0E2A5E" letter-spacing="-1">Driver Sense</text>
+    <text x="2" y="242" font-size="32" font-weight="800" fill="#1F5FD1">차 안에 나만의 선생님.</text>
+    <text x="2" y="284" font-size="19" font-weight="500" fill="#3A4A63">차량 신호로 운전 법규 습관을 진단하고, 놓치기 쉬운 순간을</text>
+    <text x="2" y="312" font-size="19" font-weight="500" fill="#3A4A63">음성 한 문장과 작은 카드로 미리 알려주는 차량용 앱</text>
   </g>
 
   <!-- 오른쪽 위: 지금 켜세요 (노랑) -->
-  <g transform="translate(748 44)" filter="url(#shadow)">
+  <g transform="translate(748 54)" filter="url(#shadow)">
     <rect x="0" y="0" width="440" height="112" rx="20" fill="#FFFFFF" stroke="#F2A700" stroke-width="6"/>
     <circle cx="58" cy="56" r="34" fill="#FFC04D"/>
     <path d="M66 70 V48 H46" fill="none" stroke="#111418" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -51,7 +51,7 @@
   </g>
 
   <!-- 오른쪽 가운데: 좋아요 (파랑) -->
-  <g transform="translate(830 178)" filter="url(#shadow)">
+  <g transform="translate(830 196)" filter="url(#shadow)">
     <rect x="0" y="0" width="400" height="112" rx="20" fill="#FFFFFF" stroke="#123A8C" stroke-width="6"/>
     <circle cx="58" cy="56" r="34" fill="#4C8DFF"/>
     <path d="M66 70 V48 H46" fill="none" stroke="#111418" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
@@ -62,9 +62,4 @@
     <text x="305" y="64" text-anchor="middle" font-size="22" font-weight="800" fill="#111418">✓ 좋아요</text>
   </g>
 
-  <!-- 아래: 놓침 칩 (빨강 강조) -->
-  <g transform="translate(700 296)" filter="url(#shadow)">
-    <rect x="0" y="0" width="230" height="44" rx="22" fill="#FF6B6B"/>
-    <text x="115" y="29" text-anchor="middle" font-size="19" font-weight="800" fill="#111418">✕ 다음엔 미리 켜요</text>
-  </g>
 </svg>

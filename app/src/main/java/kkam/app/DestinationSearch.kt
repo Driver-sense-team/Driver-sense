@@ -1,19 +1,16 @@
 package kkam.app
 
 import android.app.Activity
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.Gravity
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 
 /**
  * 경로 데모 목적지 검색창 (route_search.xml, 지도 위 왼쪽 위). 에뮬레이터 내비 대신 앱 지도를 내비로 쓴다.
- * 입력하면 [searchDestinations] 결과를 목록으로 보여주고, 하나를 누르면 [onSelect]로 넘긴다 (경로 데모 시작).
+ * 열면 키보드 없이 "최근 검색" 목록([RECENT_DESTINATIONS])을 바로 보여주고, 하나를 누르면 [onSelect]로 넘긴다 (경로 미리보기).
+ * 검색창은 글자를 입력받지 않는 표시용이라 눌러도 키보드가 올라오지 않는다 (시연 화면을 키보드가 덮지 않게).
  * 출발지는 현재 위치로 보여주는 경로 데모 파일의 start (세종대학교)다.
  */
 class DestinationSearch(
@@ -22,61 +19,61 @@ class DestinationSearch(
 ) {
     private val root: View = activity.findViewById(R.id.routeSearch)
     private val from: TextView = activity.findViewById(R.id.routeSearchFrom)
-    private val input: EditText = activity.findViewById(R.id.routeSearchInput)
+    private val input: TextView = activity.findViewById(R.id.routeSearchInput)
     private val results: LinearLayout = activity.findViewById(R.id.routeSearchResults)
 
     init {
         input.background = activity.pillBackground(activity.getColor(R.color.surface), activity.getColor(R.color.line))
         results.background = activity.cardBackground()
-        input.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) = Unit
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) = Unit
-            override fun afterTextChanged(s: Editable?) = showResults(s?.toString().orEmpty())
-        })
-        // 검색 키: 결과가 하나면 바로 고른다
-        input.setOnEditorActionListener { _, actionId, _ ->
-            val only = searchDestinations(input.text.toString()).singleOrNull()
-            if (actionId == EditorInfo.IME_ACTION_SEARCH && only != null) select(only)
-            actionId == EditorInfo.IME_ACTION_SEARCH
-        }
     }
 
-    /** 검색창을 연다. 입력과 목록은 비운다. */
+    /** 검색창을 연다. 최근 검색 목록을 바로 보여준다. */
     fun open(startName: String) {
         from.text = activity.getString(R.string.route_search_from, startName)
-        input.setText("")
-        results.visibility = View.GONE
+        showRecent()
         root.visibility = View.VISIBLE
     }
 
     fun close() {
-        if (root.visibility == View.GONE) return
-        hideKeyboard()
         root.visibility = View.GONE
     }
 
-    private fun showResults(query: String) {
+    /** "최근 검색" 제목 아래에 목적지를 한 줄씩 놓는다. */
+    private fun showRecent() {
         results.removeAllViews()
-        if (query.isBlank()) {
-            results.visibility = View.GONE
-            return
+        results.addView(header(activity.getString(R.string.route_search_recent)))
+        RECENT_DESTINATIONS.forEach { destination ->
+            results.addView(row(destination).apply { setOnClickListener { select(destination) } })
         }
-        val found = searchDestinations(query)
-        if (found.isEmpty()) {
-            results.addView(row(activity.getString(R.string.route_search_empty), null))
-        }
-        found.forEach { destination -> results.addView(row(destination.name, destination.area).apply { setOnClickListener { select(destination) } }) }
         results.visibility = View.VISIBLE
     }
 
-    /** 목록 한 줄: 이름(본문) + 지역(작게). */
-    private fun row(title: String, subtitle: String?): View = LinearLayout(activity).apply {
-        orientation = LinearLayout.VERTICAL
+    /** 목록 제목: "최근 검색" (작게). */
+    private fun header(title: String): View = TextView(activity, null, 0, R.style.Kk_Caption).apply {
+        text = title
+        setPadding(activity.dp(ROW_PADDING_DP), activity.dp(HEADER_PADDING_TOP_DP), activity.dp(ROW_PADDING_DP), 0)
+    }
+
+    /** 목록 한 줄: 시계 아이콘 + 이름(본문) + 지역(작게). */
+    private fun row(destination: DemoDestination): View = LinearLayout(activity).apply {
+        orientation = LinearLayout.HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
         minimumHeight = activity.dp(ROW_MIN_HEIGHT_DP)
         setPadding(activity.dp(ROW_PADDING_DP), activity.dp(ROW_PADDING_V_DP), activity.dp(ROW_PADDING_DP), activity.dp(ROW_PADDING_V_DP))
-        addView(TextView(activity, null, 0, R.style.Kk_Body).apply { text = title })
-        if (subtitle != null) addView(TextView(activity, null, 0, R.style.Kk_Caption).apply { text = subtitle })
+        val icon = ImageView(activity).apply {
+            setImageResource(R.drawable.ic_recent)
+            setColorFilter(activity.getColor(R.color.muted))
+        }
+        val iconParams = LinearLayout.LayoutParams(activity.dp(ICON_SIZE_DP), activity.dp(ICON_SIZE_DP))
+        iconParams.marginEnd = activity.dp(ICON_GAP_DP)
+        addView(icon, iconParams)
+        val texts = LinearLayout(activity).apply {
+            orientation = LinearLayout.VERTICAL
+            addView(TextView(activity, null, 0, R.style.Kk_Body).apply { text = destination.name })
+            addView(TextView(activity, null, 0, R.style.Kk_Caption).apply { text = destination.area })
+        }
+        // 남은 너비를 글자가 다 쓴다 (weight 1)
+        addView(texts, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))
     }
 
     private fun select(destination: DemoDestination) {
@@ -84,14 +81,12 @@ class DestinationSearch(
         onSelect(destination)
     }
 
-    private fun hideKeyboard() {
-        input.clearFocus()
-        activity.getSystemService(InputMethodManager::class.java)?.hideSoftInputFromWindow(input.windowToken, 0)
-    }
-
     private companion object {
         const val ROW_MIN_HEIGHT_DP = 96
         const val ROW_PADDING_DP = 32
         const val ROW_PADDING_V_DP = 16
+        const val HEADER_PADDING_TOP_DP = 24
+        const val ICON_SIZE_DP = 40
+        const val ICON_GAP_DP = 24
     }
 }

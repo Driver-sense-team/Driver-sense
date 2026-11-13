@@ -86,6 +86,26 @@ class DriveReportTest {
     }
 
     @Test
+    fun `회전교차로 판정은 진입·진출 조항을 따로 붙이고 범칙금 3만 원으로 센다`() {
+        val report = buildReport(
+            listOf(
+                event("evt-1", RuleId.R8, Result.KEPT, guided = true, turn = TurnType.ROUNDABOUT_ENTER),
+                event("evt-2", RuleId.R8, Result.MISSED, guided = true, turn = TurnType.ROUNDABOUT_EXIT),
+            ),
+            listOf(law("LAW-17", "별표 2 7호", "범칙금 3만 원 (진입)"), law("LAW-18", "별표 2 8호", "범칙금 3만 원 (진출)")),
+        )
+
+        assertEquals(
+            listOf(
+                ReportItem(false, "회전교차로 진출 깜빡이 놓침", "놓쳤어요", "별표 2 8호", "처분: 범칙금 3만 원 (진출)"),
+                ReportItem(true, "회전교차로 진입 깜빡이 지킴", "안내 듣고 지켰어요", "별표 2 7호", "단속됐다면: 범칙금 3만 원 (진입)"),
+            ),
+            report.items,
+        )
+        assertEquals(30_000, report.savedWon)
+    }
+
+    @Test
     fun `나들목과 터널 판정도 리포트에 나온다`() {
         val report = buildReport(
             listOf(

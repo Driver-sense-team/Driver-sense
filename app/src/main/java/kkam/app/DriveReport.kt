@@ -70,7 +70,7 @@ private fun Event.toItem(law: LawEntry?): ReportItem {
  * R5(터널 전조등)는 처분 금액을 아직 확인하지 못해 0원으로 둔다 (spec 8장).
  */
 private fun RuleId.fineWon(): Int = when (this) {
-    RuleId.R1, RuleId.R2, RuleId.R4 -> 30_000
+    RuleId.R1, RuleId.R2, RuleId.R4, RuleId.R8 -> 30_000
     RuleId.R3 -> 60_000
     RuleId.R5, RuleId.R6, RuleId.R7 -> 0
 }
@@ -91,6 +91,7 @@ val RuleId.inRate: Boolean get() = this != RuleId.R6 && this != RuleId.R7
  * | R2 | LAW-03 깜빡이 없이 회전 |
  * | R3 | LAW-12 적색 신호 우회전 일시정지 |
  * | R4 | LAW-04 차로 변경 |
+ * | R8 진입·진출 | LAW-17 회전교차로 진입, LAW-18 회전교차로 진출 |
  * | R5·R6·R7 | 없음. R5(터널 전조등)는 룰 테이블에 행이 아직 없고, R6(와이퍼)·R7(김서림)은 법규 근거가 없다 |
  */
 private fun Event.lawId(): String? = when (rule) {
@@ -98,5 +99,6 @@ private fun Event.lawId(): String? = when (rule) {
     RuleId.R2 -> "LAW-03"
     RuleId.R3 -> "LAW-12"
     RuleId.R4 -> "LAW-04"
+    RuleId.R8 -> if (turn == TurnType.ROUNDABOUT_EXIT) "LAW-18" else "LAW-17"
     RuleId.R5, RuleId.R6, RuleId.R7 -> null
 }

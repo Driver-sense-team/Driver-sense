@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  회전교차로: 아래에서 들어와 원을 반시계 방향으로 돌고 오른쪽으로 나가는 화살표 (내비의 회전교차로 그림과 같은 모양).
+  다른 안내 그림처럼 흰색으로 그리고 코드에서 색을 입힌다.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- 교차로 원 (가운데 섬) -->
+    <path
+        android:pathData="M7,11a4.5,4.5 0,1 0,9 0a4.5,4.5 0,1 0,-9 0"
+        android:strokeWidth="2"
+        android:strokeColor="#FFFFFFFF" />
+    <!-- 들어오는 길 (아래) -->
+    <path
+        android:pathData="M11.5,22.5V15.5"
+        android:strokeWidth="2.4"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round" />
+    <!-- 나가는 길 (오른쪽) -->
+    <path
+        android:pathData="M16,11H19.5"
+        android:strokeWidth="2.4"
+        android:strokeColor="#FFFFFFFF" />
+    <!-- 화살촉 -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M19,7L23.5,11L19,15Z" />
+</vector>

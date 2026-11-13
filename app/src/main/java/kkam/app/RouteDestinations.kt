@@ -1,7 +1,8 @@
 package kkam.app
 
 // 경로 데모의 목적지 검색. 에뮬레이터 내비는 검색·경로 계산을 못 하고, 네이버 Directions API는 Client Secret이 필요해서
-// 미리 계산한 경로(assets JSON)를 목적지로 둔다. 검색창에 입력하면 이 목록에서 맞는 것을 보여준다.
+// 미리 계산한 경로(assets JSON)를 목적지로 둔다. 검색창을 열면 이 목록을 "최근 검색"으로 보여준다 (타자 입력 없음).
+// searchDestinations는 화면에서 지금 쓰지 않고, 입력 검색을 다시 붙일 때를 위해 테스트와 함께 남겨 둔다.
 // Android에 의존하지 않아서 JVM 테스트로 확인한다 (RouteDestinationsTest).
 
 /** 미리 계산한 경로가 있는 목적지 하나. */
@@ -26,6 +27,9 @@ val DEMO_DESTINATIONS = listOf(
         keywords = listOf("42dot", "포티투닷", "현대자동차 판교", "현대차 판교", "현대자동차", "현대차", "판교", "pleos", "플레오스"),
     ),
 )
+
+/** 검색창을 열면 바로 보여주는 "최근 검색" 목록. 시연에서는 타자 없이 여기서 목적지를 고른다. */
+val RECENT_DESTINATIONS: List<DemoDestination> = DEMO_DESTINATIONS
 
 /** 입력한 말이 이름이나 찾는 말의 일부면 보여준다. 빈 입력이면 아무것도 보여주지 않는다. */
 fun searchDestinations(query: String, destinations: List<DemoDestination> = DEMO_DESTINATIONS): List<DemoDestination> {

@@ -59,8 +59,9 @@ enum class Gear { P, R, N, D }
 @Serializable
 enum class TurnSignal { OFF, LEFT, RIGHT, HAZARD }
 
+/** 내비 다음 안내의 종류 (spec 2.1). ROUNDABOUT_ENTER·ROUNDABOUT_EXIT는 회전교차로 진입·진출 (R8, spec 14장). */
 @Serializable
-enum class TurnType { LEFT, RIGHT, STRAIGHT, UTURN, RAMP_LEFT, RAMP_RIGHT, TUNNEL, OTHER }
+enum class TurnType { LEFT, RIGHT, STRAIGHT, UTURN, RAMP_LEFT, RAMP_RIGHT, TUNNEL, ROUNDABOUT_ENTER, ROUNDABOUT_EXIT, OTHER }
 
 /** 전조등 상태. AUTO는 스위치가 자동이라 필요하면 켜지는 상태 (spec 2.1 변환표). */
 @Serializable

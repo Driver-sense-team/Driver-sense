@@ -16,6 +16,7 @@ import kkam.engine.rules.APPROACH_START_M
 import kkam.engine.rules.CHECK_AT_M
 import kkam.engine.rules.LANE_CHECK_M
 import kkam.engine.rules.LANE_START_M
+import kkam.engine.rules.RB_EXIT_CHECK_M
 import kkam.engine.rules.STOP_KPH
 import kkam.engine.rules.TUNNEL_GUIDE_M
 import java.time.Instant
@@ -139,6 +140,24 @@ private fun SignalFrame.target(): Target? {
         } else {
             signalTarget(tbt.turn, GuideKind.TURN_SIGNAL, CHECK_AT_M, "지금 켜세요")
         }
+        // 회전교차로: 들어갈 때 왼쪽(30m), 나갈 때 오른쪽(출구 10m) (R8, spec 14장)
+        TurnType.ROUNDABOUT_ENTER, TurnType.ROUNDABOUT_EXIT -> if (tbt.distanceM > APPROACH_START_M) {
+            null
+        } else {
+            val exit = tbt.turn == TurnType.ROUNDABOUT_EXIT
+            signalTarget(
+                tbt.turn,
+                GuideKind.ROUNDABOUT,
+                if (exit) RB_EXIT_CHECK_M else CHECK_AT_M,
+                if (exit) "오른쪽 깜빡이 켜세요" else "왼쪽 깜빡이 켜세요",
+            )
+        }
+        // 유턴은 왼쪽 깜빡이 (시행령 별표 2 1호). 판정 거리는 회전과 같다 (spec 3장)
+        TurnType.UTURN -> if (tbt.distanceM > APPROACH_START_M) {
+            null
+        } else {
+            signalTarget(tbt.turn, GuideKind.UTURN, CHECK_AT_M, "왼쪽 깜빡이 켜세요")
+        }
         TurnType.RAMP_LEFT, TurnType.RAMP_RIGHT -> if (tbt.distanceM > LANE_START_M) {
             null
         } else {
@@ -168,7 +187,7 @@ private fun SignalFrame.target(): Target? {
 }
 
 private fun SignalFrame.signalTarget(turn: TurnType, kind: GuideKind, checkM: Int, warnBadge: String): Target {
-    val right = turn == TurnType.RIGHT || turn == TurnType.RAMP_RIGHT
+    val right = turn == TurnType.RIGHT || turn == TurnType.RAMP_RIGHT || turn == TurnType.ROUNDABOUT_EXIT
     val ok = turnSignal == if (right) TurnSignal.RIGHT else TurnSignal.LEFT
     return Target(
         turn = turn,
@@ -201,8 +220,8 @@ fun CoachState.next(frame: SignalFrame, outputs: List<EngineOutput>, quiet: Bool
     for (output in outputs) {
         state = when (output) {
             is Guide -> state.copy(
-                guideKind = output.rule.guideKind() ?: state.guideKind,
-                guidedKind = output.rule.guideKind(),
+                guideKind = output.guideKind(frame.tbt?.turn) ?: state.guideKind,
+                guidedKind = output.guideKind(frame.tbt?.turn),
                 guideAction = output.action,
                 right = output.action.isRight(),
                 message = output.text,
@@ -339,6 +358,8 @@ fun TurnType.label(): String = when (this) {
     TurnType.RAMP_LEFT -> "왼쪽 나들목"
     TurnType.RAMP_RIGHT -> "오른쪽 나들목"
     TurnType.TUNNEL -> "터널"
+    TurnType.ROUNDABOUT_ENTER -> "회전교차로 진입"
+    TurnType.ROUNDABOUT_EXIT -> "회전교차로 진출"
     TurnType.OTHER -> "기타"
 }
 
@@ -358,6 +379,7 @@ fun Event.title(): String {
         RuleId.R5 -> "터널 전조등"
         RuleId.R6 -> "비 올 때 와이퍼"
         RuleId.R7 -> "앞유리 김서림"
+        RuleId.R8 -> "$direction 깜빡이"
     }
 }
 

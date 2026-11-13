@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   경로 미리보기 (출발 전, 기어 P에서만). 내비에서 목적지를 찍으면 보여준다.
-  위: 제목 + 목적지·거리.
-  가운데 왼쪽: 코치할 곳 수(큰 숫자) + 종류별 칩. 가운데 오른쪽: 자주 놓친 유형과 이번 경로의 횟수.
-  아래: 경로 순서 한 줄 + "기어를 D로 바꾸면 코치를 시작해요".
-  배경(둥근 모서리)과 칩은 RoutePreviewScreen.kt에서 Ui.kt 헬퍼로 칠한다. 누를 것은 경로 데모의 "출발" 하나뿐이다.
+  보통 내비의 경로 요약처럼 만든다.
+  위: 목적지 이름.
+  가운데 카드: 예상 소요 시간(큰 숫자) + 거리 · 도착 예정 시각.
+  그 아래 한 줄: 이 길에서 코치할 곳 수와 자주 놓친 유형.
+  아래: "기어를 D로 바꾸면 코치를 시작해요" 또는 경로 데모의 "출발".
+  배경(둥근 모서리)은 RoutePreviewScreen.kt에서 Ui.kt 헬퍼로 칠한다. 누를 것은 경로 데모의 "출발" 하나뿐이다.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/routePreviewScreen"
@@ -15,87 +17,36 @@
     android:visibility="gone">
 
     <TextView
-        style="@style/Kk.Title"
+        style="@style/Kk.Caption"
         android:text="@string/route_preview_title" />
 
     <TextView
         android:id="@+id/routeDestination"
-        style="@style/Kk.Caption"
+        style="@style/Kk.Title"
         android:layout_marginTop="4dp" />
 
+    <!-- 소요 시간 · 거리 · 도착 시각 -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/kk_gap_large"
-        android:orientation="horizontal">
-
-        <!-- 코치할 곳 -->
-        <LinearLayout
-            android:id="@+id/routePointsCard"
-            style="@style/Kk.Card"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/kk_gap"
-            android:layout_weight="1">
-
-            <TextView
-                style="@style/Kk.Caption"
-                android:text="@string/route_preview_points" />
-
-            <TextView
-                android:id="@+id/routePoints"
-                style="@style/Kk.Display"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/ok" />
-
-            <LinearLayout
-                android:id="@+id/routeCounts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/kk_gap"
-                android:orientation="horizontal" />
-        </LinearLayout>
-
-        <!-- 자주 놓친 유형 -->
-        <LinearLayout
-            android:id="@+id/routeWeakCard"
-            style="@style/Kk.Card"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/routeWeakSource"
-                style="@style/Kk.Caption" />
-
-            <TextView
-                android:id="@+id/routeWeakLabel"
-                style="@style/Kk.Title"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/warn" />
-
-            <TextView
-                android:id="@+id/routeWeakDetail"
-                style="@style/Kk.Body"
-                android:layout_marginTop="@dimen/kk_gap" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- 경로 순서 -->
-    <LinearLayout
-        android:id="@+id/routeSequenceCard"
+        android:id="@+id/routeSummaryCard"
         style="@style/Kk.Card"
-        android:layout_marginTop="@dimen/kk_gap">
+        android:layout_marginTop="@dimen/kk_gap_large">
 
         <TextView
-            style="@style/Kk.Caption"
-            android:text="@string/route_preview_sequence" />
+            android:id="@+id/routeDuration"
+            style="@style/Kk.Display"
+            android:textColor="@color/ok" />
 
         <TextView
-            android:id="@+id/routeSequence"
+            android:id="@+id/routeDistanceEta"
             style="@style/Kk.Body"
             android:layout_marginTop="8dp" />
     </LinearLayout>
+
+    <!-- 이 길에서 코치할 곳 한 줄 -->
+    <TextView
+        android:id="@+id/routeCoachLine"
+        style="@style/Kk.Body"
+        android:layout_marginTop="@dimen/kk_gap" />
 
     <Space
         android:layout_width="match_parent"

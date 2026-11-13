@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 왼쪽 유턴 화살표 (Material Icons "u_turn_left", Apache 2.0). 한국 도로의 유턴은 늘 왼쪽이라 뒤집지 않는다. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M17,20V10.5C17,8.57 15.43,7 13.5,7S10,8.57 10,10.5v3.67l1.59,-1.59L13,14l-4,4 -4,-4 1.41,-1.41L8,14.17V10.5C8,7.46 10.46,5 13.5,5S19,7.46 19,10.5V20H17z" />
+</vector>

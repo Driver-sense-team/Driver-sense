@@ -1,6 +1,6 @@
 # Driver Sense 판정 엔진 명세
 
-v0.3.2 · 2026-11-11 R1 유턴·연속 회전 보완 (제안서 `docs/proposals/spec-new-rules.md`) · 담당 AI
+v0.3.3 · 2026-11-13 R8 회전교차로 진입·진출 깜빡이 추가 · 담당 AI
 
 | 버전 | 바뀐 것 |
 | --- | --- |
@@ -9,6 +9,7 @@ v0.3.2 · 2026-11-11 R1 유턴·연속 회전 보완 (제안서 `docs/proposals/
 | v0.3 (11-11) | R2·R3·R6 추가, 입력 `wiper`·`rain`, action `STOP`·`WIPER_ON`, S13~S21, 보조 지표(급정거·급출발) 자리. 모드는 v0.4로 미룬다 |
 | v0.3.1 (11-11) | R7 앞유리 김서림 추가(13장), 입력 `defroster`·`recirc`·`fogReported`, action `DEFOG`, S22~S24 |
 | v0.3.2 (11-11) | R1이 유턴(`UTURN`)도 감시, EVENT의 `turn`에 `UTURN`. R1 연속 회전 보완(전이표 #1a·#2a, `TBT_JUMP_M`). S25~S29 |
+| v0.3.3 (11-13) | R8 회전교차로 진입·진출 깜빡이 추가(14장). tbt.turn·EVENT turn에 `ROUNDABOUT_ENTER`·`ROUNDABOUT_EXIT`, 법규표 LAW-17·18·19. R2가 회전교차로를 회전으로 세지 않음. S30~S32 |
 
 이 문서가 기준이다. 코드와 다르면 이 문서를 먼저 고친다.
 
@@ -30,6 +31,7 @@ v0.3.2 · 2026-11-11 R1 유턴·연속 회전 보완 (제안서 `docs/proposals/
 | R5 | 터널 진입 전 전조등 (안내 중심) | v0.2 (8장) |
 | R6 | 비 올 때 와이퍼 (안내 중심, 법규 근거 없음) | v0.3 (10장) |
 | R7 | 앞유리 김서림 (안내 중심, 법규 근거 없음) | v0.3.1 (13장) |
+| R8 | 회전교차로 진입·진출 깜빡이 | v0.3.3 (14장) |
 
 급정거·급출발은 룰이 아니라 보조 지표다. 지킴·놓침, 범칙금, 음성 안내 없이 정차 리포트에 횟수만 보여준다(12장).
 
@@ -89,7 +91,7 @@ R4·R5는 PT 시연용 최소 범위다. 놓침(MISSED)은 내지 않고, 안내
 
 - gear: `P`, `R`, `N`, `D`
 - turnSignal: `OFF`, `LEFT`, `RIGHT`, `HAZARD`
-- tbt.turn: `LEFT`, `RIGHT`, `STRAIGHT`, `UTURN`, `RAMP_LEFT`, `RAMP_RIGHT`, `TUNNEL`, `OTHER`
+- tbt.turn: `LEFT`, `RIGHT`, `STRAIGHT`, `UTURN`, `RAMP_LEFT`, `RAMP_RIGHT`, `TUNNEL`, `ROUNDABOUT_ENTER`, `ROUNDABOUT_EXIT`, `OTHER`
 - light.phase: `RED`, `YELLOW`, `GREEN`, `UNKNOWN`
 - headlight: `OFF`, `ON`, `AUTO`
 - wiper: `OFF`, `ON`, `AUTO`
@@ -112,7 +114,9 @@ Tbt: `{ "turn": "LEFT", "distanceM": 48 }` (distanceM은 Int, 미터. SDK의 dis
 | tbt.turn | `TURN_ENTER_IC_L`, `TURN_EXIT_IC_L` | `RAMP_LEFT` |
 | tbt.turn | `TURN_ENTER_IC_R`, `TURN_EXIT_IC_R` | `RAMP_RIGHT` |
 | tbt.turn | `TURN_TUNNEL` | `TUNNEL` |
-| tbt.turn | 그 밖의 값 (`TURN_KEEP_*`, `TURN_ENTER_IC_C`, `TURN_EXIT_IC_C`, 고가, 지하차도, 회전교차로 등) | `OTHER` |
+| tbt.turn | `TURN_ENTER_ROUNDABOUT_02` ~ `_12` (숫자는 나갈 출구의 시계 방향) | `ROUNDABOUT_ENTER` |
+| tbt.turn | `TURN_EXIT_ROUNDABOUT` | `ROUNDABOUT_EXIT` |
+| tbt.turn | 그 밖의 값 (`TURN_KEEP_*`, `TURN_ENTER_IC_C`, `TURN_EXIT_IC_C`, 고가, 지하차도 등) | `OTHER` |
 | headlight | 하향등 상태(`getCurrentLowBeamLightState`)가 `ON` | `ON` |
 | headlight | 위가 아니고, 하향등 스위치(`getLowBeamLightSwitch`)가 `AUTOMATIC` | `AUTO` |
 | headlight | 그 밖의 값 (상태 `OFF`, `DAYTIME_RUNNING`) | `OFF` |
@@ -173,10 +177,10 @@ TrafficLight: `{ "phase": "RED", "remainSec": 12 }` (remainSec는 Int?, 모르�
 | --- | --- |
 | id | 엔진 인스턴스 안에서 순서대로 `evt-1`, `evt-2` … (테스트 재현성 때문에 UUID를 쓰지 않는다) |
 | t | 이벤트가 나온 프레임의 시각 |
-| rule | `R1`, `R2`, `R3`, `R4`, `R5`, `R6` |
+| rule | `R1` ~ `R8` |
 | result | `KEPT`(지킴), `MISSED`(놓침). R4·R5·R6·R7은 `KEPT`만 낸다 |
 | guided | 이 판정 전에 예방 안내(GUIDE)가 나갔는지. 앱의 "아낀 범칙금" 계산에 쓴다. R2는 안내가 없어 항상 false |
-| turn | `LEFT`, `RIGHT`, `UTURN`, 또는 null. R1은 `LEFT`·`RIGHT`·`UTURN`, R2·R4는 회전 방향, R3는 `RIGHT`, R5·R6·R7은 null |
+| turn | `LEFT`, `RIGHT`, `UTURN`, `ROUNDABOUT_ENTER`, `ROUNDABOUT_EXIT`, 또는 null. R1은 `LEFT`·`RIGHT`·`UTURN`, R2·R4는 회전 방향, R3는 `RIGHT`, R8은 `ROUNDABOUT_ENTER`·`ROUNDABOUT_EXIT`, R5·R6·R7은 null |
 | lat, lon | 이벤트가 나온 프레임의 위치 |
 
 - `turn`이 null일 수 있으므로 앱과 서버는 null을 처리해야 한다. R1의 유턴은 `UTURN`으로 온다(v0.3.2).
@@ -198,7 +202,7 @@ for (out in outputs) {
 ```
 
 - 엔진은 한 스레드에서만 호출한다고 가정한다.
-- 한 프레임에서 출력이 0개, 1개, 여러 개 나올 수 있다. 여러 룰이 한 프레임에 출력하면 룰 번호 순서(R1, R2, R3, R4, R5, R6, R7)로 담는다.
+- 한 프레임에서 출력이 0개, 1개, 여러 개 나올 수 있다. 여러 룰이 한 프레임에 출력하면 룰 번호 순서(R1, R2, R3, R4, R5, R6, R7, R8)로 담는다.
 - 적색 우회전에서는 R1(깜빡이)과 R3(멈춤) 안내가 같은 회전에 나올 수 있다. 엔진은 둘 다 내고, 앱은 R3 문장을 먼저 읽는다.
 - R5는 안내 직후 운전자가 전조등을 켜면 그 프레임에 EVENT가 바로 나온다. 앱이 "EVENT가 오면 안내 표시를 숨김"으로 처리하면 따랐다는 표시가 보이지 않을 수 있다. 표시 유지 시간은 앱(앱 담당)이 정한다.
 
@@ -653,7 +657,9 @@ S29 (같은 방향 좌회전 두 번, 첫 회전의 30m 프레임 없음. #2a �
 - [ ] R4 판정 지점을 100m 하나로 두는 것. 일반도로 나들목은 30m 기준이라 더 엄격하게 본다 (v0.2)
 - [ ] R4·R5에서 MISSED를 낼 조건. 차로 번호, 터널 통과 여부를 알 수 있는 입력이 생기면 다시 본다 (v0.2)
 - [ ] R3 멈춤 기준(STOP_KPH 2.0)과 멈춤 인정 구간(TURN_START_DEG 15°)이 실제 차량에서 맞는가 (v0.3)
-- [ ] R2 회전 기준(10초 안 60°, 30km/h 이하)이 실제 도로에서 오탐이 없는가. 굽은 도로, 회전교차로, 주차장 (v0.3)
+- [ ] R2 회전 기준(10초 안 60°, 30km/h 이하)이 실제 도로에서 오탐이 없는가. 굽은 도로, 주차장 (v0.3). 회전교차로는 내비 안내가 있으면 R8이 본다 (v0.3.3)
+- [ ] 회전교차로에서 내비 TBT 목록이 실제로 "진입(ENTER) → 진출(EXIT)" 순서로 오는가, 진출 안내의 남은 거리가 출구까지인가. 에뮬레이터 내비는 위치가 움직이지 않아 확인할 수 없다. 다르면 R8 판정 지점을 다시 정한다 (v0.3.3)
+- [ ] R8 진출 판정 지점 `RB_EXIT_CHECK_M`(10m)이 회전교차로 크기에 맞는가. 법령은 30m 전을 말하지만 회전교차로 안은 30m가 안 되는 경우가 많다 (v0.3.3)
 - [ ] 실제 주행의 `rain` 출처. 서버 날씨 API(서버 담당)가 붙기 전까지 R6은 시나리오에서만 동작한다 (v0.3)
 - [ ] 보조 지표(12장): 급정거·급출발 기준 가속도(m/s²). 근거 자료를 찾아 정한다
 - [ ] 보조 지표(12장): 한 번 센 뒤 다시 세지 않는 시간
@@ -906,7 +912,7 @@ R2는 상태 대신 최근 프레임 기록을 갖는다.
 | --- | --- | --- | --- |
 | 0 | gear가 P 또는 R | history를 비운다. R이면 lastReverseT = t | 없음 |
 | 1 | t − lastReverseT < 30000 | history를 비운다 | 없음 (주차 중) |
-| 2 | 다른 룰이 이 회전을 본다: R1이 IDLE이 아니거나, tbt.turn이 LEFT·RIGHT이고 100m 이내이거나, tbt.turn이 RAMP_LEFT·RAMP_RIGHT이고 300m 이내이거나, 이 프레임 또는 최근 10초 안에 R1·R4 EVENT가 나왔다 | history를 비운다 | 없음 |
+| 2 | 다른 룰이 이 회전을 본다: R1이나 R8이 IDLE이 아니거나, tbt.turn이 LEFT·RIGHT·ROUNDABOUT_ENTER·ROUNDABOUT_EXIT이고 100m 이내이거나, tbt.turn이 RAMP_LEFT·RAMP_RIGHT이고 300m 이내이거나, 이 프레임 또는 최근 10초 안에 R1·R4·R8 EVENT가 나왔다 | history를 비운다 | 없음 |
 | 3 | 이 프레임을 history에 넣은 뒤, t − 10000 이후의 어떤 프레임 f에 대해 headingDiff(f, 지금) ≥ 60 이고 f부터 지금까지 모든 프레임이 speedKph ≤ 30 | 그런 f 중 가장 이른 것을 회전 시작으로 본다. history를 비운다 | EVENT (아래) |
 | 4 | 그 밖 | history에 넣고 15초보다 오래된 프레임을 지운다 | 없음 |
 
@@ -975,3 +981,66 @@ R2는 상태 대신 최근 프레임 기록을 갖는다.
 - GUIDE 문구: `앞유리가 뿌예질 수 있어요, 성에 제거를 켜고 외기로 바꾸세요`. action: `DEFOG`.
 - 앱의 "어떻게 하는지" 그림은 성에 제거(부채꼴)와 외기 순환 버튼 모양만 보여주고 위치는 말하지 않는다. 버튼 위치가 차종마다 다르기 때문이다.
 
+---
+
+## 14. 룰 R8: 회전교차로 진입·진출 깜빡이
+
+**법 근거**: 도로교통법 제38조제1항(방향을 바꿀 때 신호), 시행령 별표 2 7호·8호 (법규표 LAW-17 진입, LAW-18 진출). 2022. 1. 11. 개정된 제38조제1항이 "회전교차로에 진입하거나 회전교차로에서 진출하는 경우" 신호를 명시한다. 들어갈 때는 진입 지점 30m 이상 앞에서 **왼쪽**(7호), 나갈 때는 진출하려는 때 **오른쪽**(8호). 처분은 제38조 위반이라 승용차 범칙금 3만 원(현장 적발), 과태료 4만 원(공익신고)으로 보며 별표 8 원문은 확인 필요다. 조문 확인 기록은 `docs/proposals/spec-new-rules.md` 0.1.
+
+**판정 기준 (11/13 확정)**
+
+- 들어갈 때와 나갈 때를 **따로** 판정한다. 회전교차로 하나에서 EVENT가 두 개(진입, 진출) 나온다.
+- 기록 시점은 그 지점을 **통과했을 때**다. 회전교차로 안은 진행 방향이 계속 바뀌므로 R1처럼 진행 방향 변화(60°)로 끝을 볼 수 없다. 대신 내비의 다음 안내가 바뀌면(진입 → 진출 → 그다음 안내) 통과로 본다.
+
+**MVP 단순화**
+
+- 내비 안내가 회전교차로 진입(`ROUNDABOUT_ENTER`)·진출(`ROUNDABOUT_EXIT`)일 때만 본다. 내비 없이 도는 회전교차로는 보지 않는다.
+- 진입은 R1과 같이 30m 지점에서 왼쪽 깜빡이를 본다. 진출은 회전교차로 안이 짧아서 출구 10m 앞(`RB_EXIT_CHECK_M`)에서 오른쪽 깜빡이를 본다.
+- 첫 출구로 바로 나가는 경우에도 진입 왼쪽 깜빡이를 판정한다. 법문에 예외가 없다 (제안서 Q6-2를 이렇게 정함).
+- 판정 지점을 한 번도 보지 못하고 통과하면(남은 거리가 판정 지점보다 먼 프레임에서 바로 다음 안내로 바뀜) 기록하지 않는다.
+
+### 14.1 파라미터
+
+| 이름 | 값 | 뜻 |
+| --- | --- | --- |
+| APPROACH_START_M | 100 | R1과 같다. 이 거리 안이면 감시를 시작한다 |
+| CHECK_AT_M | 30 | R1과 같다. 진입 판정 지점 |
+| RB_EXIT_CHECK_M | 10 | 진출 판정 지점. 시연용 초안이다(5장) |
+| RB_PASS_M | 20 | 다음 안내로 바뀌기 직전 남은 거리가 이 값 이하면 그 지점을 통과한 것으로 본다. 더 멀면 재탐색으로 보고 취소한다 |
+| guideDistance(speedKph) | R1과 같다 | 안내 거리 (50~100m) |
+
+### 14.2 상태
+
+| 상태 | 뜻 | 기억하는 값 |
+| --- | --- | --- |
+| IDLE | 대기 | 없음 |
+| APPROACHING | 진입 또는 진출 지점에 다가가는 중 | target(ROUNDABOUT_ENTER/ROUNDABOUT_EXIT), guided, signalOk(판정 지점의 깜빡이, 보기 전에는 null), lastDistanceM |
+
+### 14.3 전이표
+
+위에서부터 검사하고 처음 맞는 행 하나만 적용한다. "판정 지점"은 target이 ROUNDABOUT_ENTER면 CHECK_AT_M, ROUNDABOUT_EXIT면 RB_EXIT_CHECK_M이다. "맞는 깜빡이"는 ENTER면 LEFT, EXIT면 RIGHT다 (HAZARD는 아니다).
+
+| # | 현재 | 조건 | 다음 | 출력 |
+| --- | --- | --- | --- | --- |
+| 0 | 모든 상태 | gear가 P 또는 R | IDLE | 없음 |
+| 1 | IDLE | tbt.turn이 ROUNDABOUT_ENTER 또는 ROUNDABOUT_EXIT이고 tbt.distanceM ≤ 100 | APPROACHING (target = tbt.turn, guided = false, signalOk = 판정 지점 안이면 맞는 깜빡이인지 아니면 null) | 없음 |
+| 2 | APPROACHING | tbt가 null이거나 tbt.turn ≠ target 이고 lastDistanceM ≤ RB_PASS_M 이고 signalOk ≠ null | #1을 이번 tbt로 적용 (진입 다음 진출을 바로 감시) | EVENT (signalOk면 KEPT 아니면 MISSED, guided 그대로, turn = target) |
+| 3 | APPROACHING | tbt가 null이거나 tbt.turn ≠ target | #1을 이번 tbt로 적용 | 없음 (재탐색, 또는 판정 지점을 못 봄) |
+| 4 | APPROACHING | signalOk == null 이고 tbt.distanceM ≤ 판정 지점 | APPROACHING (signalOk = 맞는 깜빡이인지) | 없음 |
+| 5 | APPROACHING | signalOk == null 이고 tbt.distanceM ≤ guideDistance(speedKph) 이고 맞는 깜빡이가 아니고 guided == false | APPROACHING (guided = true) | GUIDE |
+| 6 | APPROACHING | 그 밖 | APPROACHING (lastDistanceM = tbt.distanceM) | 없음 |
+
+- GUIDE 문구: ENTER면 `회전교차로에 들어가요, 왼쪽 깜빡이 켜세요`, EXIT면 `회전교차로에서 나가요, 오른쪽 깜빡이 켜세요`.
+- GUIDE action: ENTER면 `SIGNAL_LEFT`, EXIT면 `SIGNAL_RIGHT`.
+- #1·#4에서 판정 지점의 깜빡이를 정하면 바꾸지 않는다. 판정 지점을 지나 켜도 놓침이다 (R1과 같다).
+- R2는 tbt가 회전교차로이거나 R8이 감시 중이거나 R8이 10초 안에 EVENT를 냈으면 판정하지 않는다 (11.3 #2). 같은 회전교차로를 R2가 "깜빡이 없이 회전"으로 다시 세지 않게 한다.
+
+### 14.4 시나리오
+
+공통: 회전교차로 진입 → 진출 → 직진. 진입 안내는 120·90·60·45·28·12m, 진출 안내는 40·25·15·8m(t=8000~11000), 그다음 직진 안내. 속도는 40에서 20까지 줄었다가 25. 진행 방향은 0°에서 회전교차로를 돌며 330·300·240·180·120·90°로 바뀐다(R2가 세지 않는지 확인).
+
+| 이름 | 깜빡이 | 기대 출력 |
+| --- | --- | --- |
+| S30_회전교차로_안내후_켬 | 진입 안내 뒤 45m부터 LEFT, 진출 안내 뒤 15m부터 RIGHT | GUIDE R8(진입), EVENT R8 KEPT guided=true (진입), GUIDE R8(진출), EVENT R8 KEPT guided=true (진출) |
+| S31_회전교차로_진출때_안켬 | 진입은 처음부터 LEFT, 진출 안내부터 끝까지 OFF | EVENT R8 KEPT guided=false (진입), GUIDE R8(진출), EVENT R8 MISSED guided=true (진출) |
+| S32_회전교차로_깜빡이_안켬 | 끝까지 OFF | GUIDE R8, EVENT R8 MISSED guided=true, GUIDE R8, EVENT R8 MISSED guided=true. R2는 나오지 않는다 |

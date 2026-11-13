@@ -100,7 +100,7 @@ class CoachSession(context: Context) {
     /**
      * PT용 경로 데모. 목적지 검색에서 고른 목적지의 미리 계산한 경로를 따라 달리는 프레임을 재생한다 ([RouteDemo]).
      * 출발 전 기어 P에서 경로 미리보기, 코치 지점마다 안내·판정, 도착하면 경로 리포트.
-     * 차선 변경은 엔진 룰이 없어서 각본 시각([RouteDemo.LaneCue])에 팝업과 음성만 낸다.
+     * 차선 변경·급정거·커브 같은 영상용 안내는 엔진 룰이 없어서 각본 시각([RouteDemo.ScriptCue])에 팝업과 음성만 낸다.
      */
     fun playRouteDemo(destination: DemoDestination) {
         stopAll()
@@ -132,8 +132,8 @@ class CoachSession(context: Context) {
                 routeFastForward = frame.t in run.fastForward
                 // 도착 프레임에서 경로를 끝낸다. 뒤따르는 기어 P 프레임에서 경로 리포트가 열린다.
                 if (frame.t == run.arriveAt) state = state.endRoute(RouteStatus.ARRIVED)
-                if (run.laneCues.any { it.showAt == frame.t }) speaker.speak(LANE_CHANGE_SPEECH)
-                onFrame(frame, laneChangePopup(run.laneCues, frame.t))
+                scriptSpeech(run.scriptCues, frame.t)?.let(speaker::speak)
+                onFrame(frame, scriptPopup(run.scriptCues, frame.t))
             },
             onEnd = {
                 console.stop()
@@ -240,7 +240,7 @@ class CoachSession(context: Context) {
     /** 운전 코치가 켜져 있는가 (코치 화면의 켬/끔). 경로 코치 등 다른 곳에서도 이 값을 읽는다. */
     val coachOn: Boolean get() = modes.isCoachOn()
 
-    /** [demoPopup]: 경로 데모 각본 팝업(차선 변경). 있으면 엔진 출력으로 정한 팝업보다 먼저 보인다. */
+    /** [demoPopup]: 경로 데모 각본 팝업(차선 변경 등). 있으면 엔진 출력으로 정한 팝업보다 먼저 보인다. */
     private fun onFrame(frame: SignalFrame, demoPopup: Popup? = null) {
         // 코치 끔은 '알림 끔'이다. 엔진은 계속 돌려 판정(KEPT/MISSED)은 기록하되,
         // 끄면 음성·카드·팝업 같은 안내만 내보내지 않는다(카드는 대기 상태로 둔다). 기획서 진단→교정→졸업의 기록이 끊기지 않게 하려는 것이다.
@@ -279,7 +279,8 @@ class CoachSession(context: Context) {
         const val ROUTE_DEMO = "경로"
         /** 실제 차량 신호에 필요한 런타임 권한. 화면이 묻고, 경로 자동 시작은 있는지만 본다. */
         val LIVE_PERMISSIONS = listOf("android.car.permission.CAR_SPEED", "pleos.car.permission.FUSED_LOCATION")
-        private const val OK_POPUP_MS = 3000L
+        /** 파랑 "좋아요" 팝업을 보여주는 시간. 영상에서 읽을 수 있게 4초. */
+        private const val OK_POPUP_MS = 4000L
         private const val PREVIEW_POPUP_MS = 6000L
         private const val TAG = "KkamCoach"
     }
