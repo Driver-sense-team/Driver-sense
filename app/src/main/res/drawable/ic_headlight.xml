@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 전조등: 반원 모양 등과 앞으로 뻗는 빛 세 줄 (계기판 전조등 표시와 같은 모양). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M11,5 C5.5,5 2,8 2,12 C2,16 5.5,19 11,19 Z" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M14,7.5 L22,6 M14,12 L22,12 M14,16.5 L22,18"
+        android:strokeWidth="2.2"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round" />
+</vector>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  경로 리포트 (기어 P에서만). 내비 경로(또는 경로 데모)가 끝나면 오늘 리포트 대신 보여준다.
+  위: "○○ 경로 리포트" + 한 줄 요약 ("도착했어요 · 4번 중 3번 지켰어요").
+  왼쪽: 놓친 곳 수(크게), 지킨 곳 수, 아낀 범칙금.
+  오른쪽: 판정 카드(route_report_item.xml). 놓친 곳(잘못한 점)이 먼저 온다.
+  오늘 리포트(screen_report.xml)와 따로 둔다. 배경은 RouteReportScreen.kt에서 Ui.kt 헬퍼로 칠한다.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/routeReportScreen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/kk_screen_padding"
+    android:visibility="gone">
+
+    <TextView
+        android:id="@+id/routeReportTitle"
+        style="@style/Kk.Title" />
+
+    <TextView
+        android:id="@+id/routeReportSummary"
+        style="@style/Kk.Caption"
+        android:layout_marginTop="4dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/kk_gap_large"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <!-- 왼쪽: 숫자 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/kk_gap_large"
+            android:layout_weight="2"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/routeReportMissedCard"
+                style="@style/Kk.Card">
+
+                <TextView
+                    style="@style/Kk.Caption"
+                    android:text="@string/route_report_missed" />
+
+                <TextView
+                    android:id="@+id/routeReportMissed"
+                    style="@style/Kk.Display"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/miss" />
+
+                <TextView
+                    android:id="@+id/routeReportMissedHint"
+                    style="@style/Kk.Caption"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/routeReportKeptCard"
+                style="@style/Kk.Card"
+                android:layout_marginTop="@dimen/kk_gap">
+
+                <TextView
+                    android:id="@+id/routeReportKept"
+                    style="@style/Kk.Body"
+                    android:textColor="@color/ok"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/routeReportSaved"
+                    style="@style/Kk.Caption"
+                    android:layout_marginTop="8dp" />
+            </LinearLayout>
+
+            <!-- 놓친 곳의 법규를 바로 물어보게 법규 Q&A로 간다 (질문: ROUTE_REPORT_QUESTION). -->
+            <TextView
+                android:id="@+id/routeReportAsk"
+                style="@style/Kk.Pill"
+                android:layout_height="88dp"
+                android:layout_marginTop="@dimen/kk_gap"
+                android:paddingHorizontal="40dp"
+                android:text="@string/route_report_ask"
+                android:textColor="@color/on_accent"
+                android:textSize="@dimen/kk_text_body" />
+        </LinearLayout>
+
+        <!-- 오른쪽: 판정 카드. 놓친 곳이 먼저 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Kk.Caption"
+                android:layout_marginBottom="@dimen/kk_gap"
+                android:text="@string/route_report_timeline" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/routeReportItems"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
+
+            <TextView
+                android:id="@+id/routeReportEmpty"
+                style="@style/Kk.Body"
+                android:text="@string/route_report_empty"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

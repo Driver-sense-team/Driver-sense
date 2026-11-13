@@ -1,0 +1,17 @@
+{
+  "name": "S12_나들목_안내후_켬",
+  "description": "오른쪽 나들목 안내를 듣고 오른쪽 깜빡이를 켬. 100m 지점에서 지킴.",
+  "expect": [
+    {"type": "GUIDE", "t": 15000, "rule": "R4"},
+    {"type": "EVENT", "t": 18000, "rule": "R4", "result": "KEPT", "guided": true}
+  ],
+  "frames": [
+    {"t": 0, "speedKph": 80.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.07, "headingDeg": 90.0, "tbt": {"turn": "RAMP_RIGHT", "distanceM": 500}, "light": null},
+    {"t": 5000, "speedKph": 80.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.0702, "headingDeg": 90.0, "tbt": {"turn": "RAMP_RIGHT", "distanceM": 389}, "light": null},
+    {"t": 9000, "speedKph": 80.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.0704, "headingDeg": 90.0, "tbt": {"turn": "RAMP_RIGHT", "distanceM": 300}, "light": null},
+    {"t": 15000, "speedKph": 80.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.0706, "headingDeg": 90.0, "tbt": {"turn": "RAMP_RIGHT", "distanceM": 167}, "light": null},
+    {"t": 17000, "speedKph": 80.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "RIGHT", "brake": false, "lat": 37.55, "lon": 127.0708, "headingDeg": 90.0, "tbt": {"turn": "RAMP_RIGHT", "distanceM": 122}, "light": null},
+    {"t": 18000, "speedKph": 80.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "RIGHT", "brake": false, "lat": 37.55, "lon": 127.071, "headingDeg": 90.0, "tbt": {"turn": "RAMP_RIGHT", "distanceM": 100}, "light": null},
+    {"t": 20000, "speedKph": 80.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "RIGHT", "brake": false, "lat": 37.55, "lon": 127.0712, "headingDeg": 90.0, "tbt": {"turn": "STRAIGHT", "distanceM": 500}, "light": null}
+  ]
+}

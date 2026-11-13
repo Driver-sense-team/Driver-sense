@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 깜빡이 켜짐: 계기판 깜빡이 모양의 꽉 찬 화살표 두 개. 색은 코드에서 입힌다. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M1.5,12L9.5,5.5V18.5Z" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M22.5,12L14.5,5.5V18.5Z" />
+</vector>

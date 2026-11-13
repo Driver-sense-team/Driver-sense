@@ -1,0 +1,14 @@
+{
+  "name": "S20_완만한_커브",
+  "description": "20초 동안 60° 굽는 완만한 길. 10초 안의 변화가 60°에 못 미쳐 회전으로 보지 않음.",
+  "expect": [
+  ],
+  "frames": [
+    {"t": 0, "speedKph": 25.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.07, "headingDeg": 90.0, "tbt": null, "light": null},
+    {"t": 4000, "speedKph": 25.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.5501, "lon": 127.0701, "headingDeg": 78.0, "tbt": null, "light": null},
+    {"t": 8000, "speedKph": 25.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.5502, "lon": 127.0702, "headingDeg": 66.0, "tbt": null, "light": null},
+    {"t": 12000, "speedKph": 25.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.5503, "lon": 127.0703, "headingDeg": 54.0, "tbt": null, "light": null},
+    {"t": 16000, "speedKph": 25.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.5504, "lon": 127.0704, "headingDeg": 42.0, "tbt": null, "light": null},
+    {"t": 20000, "speedKph": 25.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.5505, "lon": 127.0705, "headingDeg": 30.0, "tbt": null, "light": null}
+  ]
+}

@@ -1,0 +1,19 @@
+<resources>
+    <!--
+      글자 크기 단계. 화면 파일에서 sp 값을 새로 만들지 않고 이 단계만 쓴다.
+      차량 중앙 화면(가로 1920 전후)을 팔 길이 거리에서 힐끗 보는 기준.
+    -->
+    <dimen name="kk_text_hero">160sp</dimen>      <!-- 남은 거리처럼 1초 안에 읽어야 하는 숫자 -->
+    <dimen name="kk_text_display">72sp</dimen>    <!-- 상태 한 마디, 요약 숫자 -->
+    <dimen name="kk_text_title">44sp</dimen>      <!-- 화면 제목, 카드 제목 -->
+    <dimen name="kk_text_body">30sp</dimen>       <!-- 본문 -->
+    <dimen name="kk_text_caption">22sp</dimen>    <!-- 보조 설명, 라벨 -->
+
+    <!-- 여백 -->
+    <dimen name="kk_screen_padding">32dp</dimen>
+    <dimen name="kk_gap">16dp</dimen>
+    <dimen name="kk_gap_large">28dp</dimen>
+
+    <!-- 기어 P 화면 왼쪽 레일 -->
+    <dimen name="kk_rail_width">200dp</dimen>
+</resources>

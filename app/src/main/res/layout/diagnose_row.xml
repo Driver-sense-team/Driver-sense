@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  진단 리포트의 준수율 막대 한 줄.
+  위: 상황 이름 + "21번 중 13번 지킴" + 평균 비교 칩 + 퍼센트(큰 숫자).
+  아래: 막대. 길이와 평균선 위치는 layout_weight로 정한다 (채움 = 퍼센트, 빈칸 = 100 - 퍼센트).
+  평균선은 막대보다 위아래로 조금 길게 그려서 막대 색과 상관없이 보이게 한다.
+  색: 주황 = 전국 평균보다 낮음(칩 "! 평균보다 낮음"), 파랑 = 평균 이상(칩 "평균 이상").
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/kk_gap_large"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/rowLabel"
+                    style="@style/Kk.Body"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/rowChip"
+                    style="@style/Kk.Caption"
+                    android:layout_marginStart="@dimen/kk_gap"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="4dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/rowCount"
+                style="@style/Kk.Caption"
+                android:layout_marginTop="2dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/rowPercent"
+            style="@style/Kk.Display" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:layout_marginTop="8dp">
+
+        <!-- 막대 (위아래 10dp 안쪽) -->
+        <LinearLayout
+            android:id="@+id/rowTrack"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="10dp"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/rowFill"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <Space
+                android:id="@+id/rowRest"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
+        <!-- 전국 평균선 (막대보다 위아래로 길다) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Space
+                android:id="@+id/rowAverageBefore"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+
+            <View
+                android:layout_width="6dp"
+                android:layout_height="match_parent"
+                android:background="@color/text" />
+
+            <Space
+                android:id="@+id/rowAverageAfter"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

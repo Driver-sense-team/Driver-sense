@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  주행 화면 "오늘 성적" 원형 링. ProgressBar의 progressDrawable로 쓴다.
+  바탕 고리(line 색) 위에 지킨 비율만큼 파란 고리를 12시 방향부터 시계 방향으로 그린다.
+  innerRadiusRatio: 안쪽 반지름 = 폭 / 값, thicknessRatio: 고리 두께 = 폭 / 값.
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape
+            android:innerRadiusRatio="2.9"
+            android:shape="ring"
+            android:thicknessRatio="8"
+            android:useLevel="false">
+            <solid android:color="@color/line" />
+        </shape>
+    </item>
+    <item android:id="@android:id/progress">
+        <rotate
+            android:fromDegrees="270"
+            android:pivotX="50%"
+            android:pivotY="50%"
+            android:toDegrees="270">
+            <shape
+                android:innerRadiusRatio="2.9"
+                android:shape="ring"
+                android:thicknessRatio="8"
+                android:useLevel="true">
+                <solid android:color="@color/ok" />
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

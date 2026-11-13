@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 교정 진행·주간 코칭 화면 (UI-4) 문구. -->
+<resources>
+    <string name="progress_title">교정 진행</string>
+    <string name="progress_week_rate">이번 주 준수율</string>
+    <!-- 예: "진단 때 62%보다 +15%p" -->
+    <string name="progress_change_up">진단 때 %1$d%%보다 +%2$d%%p</string>
+    <string name="progress_change_down">진단 때 %1$d%%보다 %2$d%%p</string>
+    <!-- 예: "가로선 = 진단 때 62%" -->
+    <string name="progress_diagnosis_line">가로선 = 진단 때 %d%%</string>
+    <string name="progress_today">오늘</string>
+    <string name="progress_no_drive">–</string>
+    <string name="progress_guide_conversion">안내 듣고 지킴</string>
+    <string name="progress_saved">아낀 범칙금</string>
+    <string name="progress_coaching">이번 주 코칭</string>
+    <string name="progress_next_focus">다음 주 집중</string>
+    <string name="progress_missed">자주 놓친 곳</string>
+    <!-- 예: "3번" -->
+    <string name="progress_missed_count">%d번</string>
+    <!-- 예: "8 /10" (numberEmphasis가 "/10"을 작게) -->
+    <string name="progress_recent_fraction">%1$d /%2$d</string>
+</resources>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 법규 Q&A 화면 (UI-5) 문구. 추천 질문은 근거 테스트를 위해 LawQna.kt의 SUGGESTED_QUESTIONS에 둔다. -->
+<resources>
+    <string name="qna_subtitle">룰 테이블에 있는 법규만 근거와 함께 답해요</string>
+    <string name="qna_hint">궁금한 법규를 물어보세요</string>
+    <string name="qna_ask">묻기</string>
+    <string name="qna_mic">음성으로 묻기</string>
+    <string name="qna_mic_soon">음성 질문은 준비 중이에요. 글로 물어봐 주세요</string>
+    <string name="qna_empty">추천 질문을 누르거나 직접 물어보세요</string>
+    <string name="qna_disputed">해석이 갈려요</string>
+    <string name="qna_sources">근거</string>
+    <string name="qna_article">조항</string>
+    <string name="qna_penalty">처분</string>
+    <string name="qna_source">출처</string>
+</resources>

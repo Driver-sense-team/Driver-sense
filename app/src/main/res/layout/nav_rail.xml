@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 기어 P 화면 왼쪽 레일. 항목은 ParkedNav가 코드로 넣는다. 주행 화면에서는 숨긴다. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navRail"
+    android:layout_width="@dimen/kk_rail_width"
+    android:layout_height="match_parent"
+    android:background="@color/panel"
+    android:orientation="vertical"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="120dp"
+    android:visibility="gone" />

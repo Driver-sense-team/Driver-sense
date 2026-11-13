@@ -1,0 +1,14 @@
+<resources>
+    <!-- 운전 코치 켬/끔 화면 (사용자 요청으로 기획서 4.3의 4개 모드를 켬/끔 하나로 줄임). -->
+    <string name="mode_hint">카드를 누르면 켜고 끕니다.</string>
+    <string name="mode_on_title">코치 켜짐</string>
+    <string name="mode_off_title">코치 꺼짐</string>
+    <string name="mode_on_desc">목적지까지 코치하고, 도착하면 리포트를 보여줘요</string>
+    <string name="mode_off_desc">안내는 하지 않고, 판정은 조용히 기록해요</string>
+    <string name="mode_on_detail">음성 안내 켬 · 판정 기록 켬</string>
+    <string name="mode_off_detail">음성 안내 끔 · 판정 기록 켬</string>
+    <string name="mode_switch_on">켬</string>
+    <string name="mode_switch_off">끔</string>
+    <string name="mode_records_saved">오늘 기록 %1$d건 저장됨</string>
+    <string name="mode_records_empty">오늘 기록 없음</string>
+</resources>

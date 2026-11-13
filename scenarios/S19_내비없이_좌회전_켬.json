@@ -1,0 +1,17 @@
+{
+  "name": "S19_내비없이_좌회전_켬",
+  "description": "내비 안내 없이 좌회전. 회전 전에 왼쪽 깜빡이를 켜서 R2 지킴.",
+  "expect": [
+    {"type": "EVENT", "t": 8000, "rule": "R2", "result": "KEPT", "guided": false}
+  ],
+  "frames": [
+    {"t": 0, "speedKph": 30.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.07, "headingDeg": 90.0, "tbt": null, "light": null},
+    {"t": 2000, "speedKph": 25.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.5501, "lon": 127.0701, "headingDeg": 90.0, "tbt": null, "light": null},
+    {"t": 4000, "speedKph": 20.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.5502, "lon": 127.0702, "headingDeg": 90.0, "tbt": null, "light": null},
+    {"t": 5000, "speedKph": 15.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.5503, "lon": 127.0703, "headingDeg": 80.0, "tbt": null, "light": null},
+    {"t": 6000, "speedKph": 12.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.5504, "lon": 127.0704, "headingDeg": 60.0, "tbt": null, "light": null},
+    {"t": 7000, "speedKph": 12.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.5505, "lon": 127.0705, "headingDeg": 40.0, "tbt": null, "light": null},
+    {"t": 8000, "speedKph": 15.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.5506, "lon": 127.0706, "headingDeg": 30.0, "tbt": null, "light": null},
+    {"t": 10000, "speedKph": 25.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.5507, "lon": 127.0707, "headingDeg": 30.0, "tbt": null, "light": null}
+  ]
+}

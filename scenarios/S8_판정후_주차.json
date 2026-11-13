@@ -1,0 +1,13 @@
+{
+  "name": "S8_판정후_주차",
+  "description": "판정 후 회전 지점 앞에서 주차. 다시 출발해 방향이 달라져도 기록하지 않음.",
+  "expect": [],
+  "frames": [
+    {"t": 0, "speedKph": 40.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.07, "headingDeg": 90.0, "tbt": {"turn": "LEFT", "distanceM": 120}, "light": null},
+    {"t": 2000, "speedKph": 38.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.55, "lon": 127.0702, "headingDeg": 90.0, "tbt": {"turn": "LEFT", "distanceM": 90}, "light": null},
+    {"t": 4000, "speedKph": 32.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.55, "lon": 127.0704, "headingDeg": 90.0, "tbt": {"turn": "LEFT", "distanceM": 60}, "light": null},
+    {"t": 7000, "speedKph": 22.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.55, "lon": 127.0706, "headingDeg": 90.0, "tbt": {"turn": "LEFT", "distanceM": 28}, "light": null},
+    {"t": 9000, "speedKph": 0.0, "gear": "P", "steeringDeg": 0.0, "turnSignal": "LEFT", "brake": false, "lat": 37.55, "lon": 127.0708, "headingDeg": 90.0, "tbt": {"turn": "LEFT", "distanceM": 25}, "light": null},
+    {"t": 60000, "speedKph": 10.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.071, "headingDeg": 30.0, "tbt": {"turn": "STRAIGHT", "distanceM": 500}, "light": null}
+  ]
+}

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 지도 위 속도 표시 바탕: 흰색 95% 둥근 사각형 (팝업 카드 바탕과 같은 색) -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/popup_light" />
+    <corners android:radius="20dp" />
+</shape>

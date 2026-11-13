@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  경로 리포트(screen_route_report.xml)의 판정 카드 한 줄. 오늘 리포트의 report_item.xml을 복사해 따로 둔다.
+  오늘 리포트 디자인이 바뀌어도 경로 리포트가 깨지지 않게 하려는 것이다.
+  왼쪽: 상태 아이콘 동그라미(✓ 파랑 = 지킴, ! 빨강 = 놓침) + 아래로 이어지는 세로선(마지막 줄은 숨김).
+  오른쪽: 카드 = 제목, 한 줄 설명, 조항 칩, 처분 칩.
+  색·아이콘은 RouteReportScreen.kt에서 칠한다.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <!-- 타임라인 축 -->
+    <LinearLayout
+        android:layout_width="64dp"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/routeItemIcon"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="20dp"
+            android:contentDescription="@null"
+            android:padding="14dp" />
+
+        <View
+            android:id="@+id/routeItemLine"
+            android:layout_width="4dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/line" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/routeItemCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/kk_gap"
+        android:layout_marginBottom="@dimen/kk_gap"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/kk_gap_large"
+        android:paddingVertical="24dp">
+
+        <TextView
+            android:id="@+id/routeItemTitle"
+            style="@style/Kk.Body"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/routeItemDetail"
+            style="@style/Kk.Caption"
+            android:layout_marginTop="4dp" />
+
+        <!-- 조항 칩. 룰 테이블에 없으면 숨긴다. -->
+        <TextView
+            android:id="@+id/routeItemArticle"
+            style="@style/Kk.Caption"
+            android:layout_marginTop="@dimen/kk_gap"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="8dp"
+            android:textColor="@color/text" />
+
+        <!-- 처분 칩. 놓침이면 빨강 계열. -->
+        <TextView
+            android:id="@+id/routeItemPenalty"
+            style="@style/Kk.Caption"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="8dp" />
+    </LinearLayout>
+</LinearLayout>

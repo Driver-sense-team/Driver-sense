@@ -1,0 +1,17 @@
+{
+  "name": "S17_비_와이퍼",
+  "description": "비가 5초 계속 오는데 와이퍼가 꺼져 있어 안내하고, 와이퍼를 켜 지킴.",
+  "expect": [
+    {"type": "GUIDE", "t": 10000, "rule": "R6"},
+    {"type": "EVENT", "t": 13000, "rule": "R6", "result": "KEPT", "guided": true}
+  ],
+  "frames": [
+    {"t": 0, "speedKph": 50.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.07, "headingDeg": 90.0, "tbt": {"turn": "STRAIGHT", "distanceM": 900}, "light": null, "wiper": "OFF", "rain": false},
+    {"t": 5000, "speedKph": 50.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.0703, "headingDeg": 90.0, "tbt": {"turn": "STRAIGHT", "distanceM": 900}, "light": null, "wiper": "OFF", "rain": true},
+    {"t": 8000, "speedKph": 50.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.0706, "headingDeg": 90.0, "tbt": {"turn": "STRAIGHT", "distanceM": 900}, "light": null, "wiper": "OFF", "rain": true},
+    {"t": 10000, "speedKph": 50.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.0709, "headingDeg": 90.0, "tbt": {"turn": "STRAIGHT", "distanceM": 900}, "light": null, "wiper": "OFF", "rain": true},
+    {"t": 13000, "speedKph": 50.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.0712, "headingDeg": 90.0, "tbt": {"turn": "STRAIGHT", "distanceM": 900}, "light": null, "wiper": "ON", "rain": true},
+    {"t": 20000, "speedKph": 50.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.0715, "headingDeg": 90.0, "tbt": {"turn": "STRAIGHT", "distanceM": 900}, "light": null, "wiper": "ON", "rain": true},
+    {"t": 25000, "speedKph": 50.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.0718, "headingDeg": 90.0, "tbt": {"turn": "STRAIGHT", "distanceM": 900}, "light": null, "wiper": "ON", "rain": false}
+  ]
+}

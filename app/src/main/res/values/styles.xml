@@ -1,0 +1,70 @@
+<resources>
+    <!-- ===== 공통 스타일 (Kk.*). 모든 화면이 이것만 쓴다. ===== -->
+    <!-- Kk.* 의 부모. 점으로 이름을 이으면 부모 스타일이 있어야 한다. -->
+    <style name="Kk" />
+
+    <!-- 화면 제목: "오늘 주행 리포트" -->
+    <style name="Kk.Title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/kk_text_title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 요약 숫자: "3만 원", "62%" -->
+    <style name="Kk.Display">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/kk_text_display</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="Kk.Body">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/kk_text_body</item>
+    </style>
+
+    <!-- 라벨, 보조 설명 -->
+    <style name="Kk.Caption">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/muted</item>
+        <item name="android:textSize">@dimen/kk_text_caption</item>
+    </style>
+
+    <!-- 카드 칸. 배경(둥근 모서리)은 코드에서 Ui.rounded()로 칠한다. -->
+    <style name="Kk.Card">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:padding">@dimen/kk_gap_large</item>
+    </style>
+
+    <!-- 알약 모양 버튼·칩 -->
+    <style name="Kk.Pill">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">64dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingHorizontal">28dp</item>
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/kk_text_caption</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- ===== 데모 패널 전용 ===== -->
+
+    <!-- 데모 패널의 구역 제목. -->
+    <style name="DemoHeader">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:textColor">@color/muted</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+</resources>

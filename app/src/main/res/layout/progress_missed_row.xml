@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 자주 놓친 곳 한 줄: 순위 숫자(크게, 빨강 = 놓침), 장소 이름, 놓친 횟수. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="6dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/missedRank"
+        style="@style/Kk.Title"
+        android:includeFontPadding="false"
+        android:minWidth="56dp"
+        android:textColor="@color/miss" />
+
+    <TextView
+        android:id="@+id/missedName"
+        style="@style/Kk.Body"
+        android:layout_width="0dp"
+        android:layout_marginStart="@dimen/kk_gap"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1" />
+
+    <TextView
+        android:id="@+id/missedCount"
+        style="@style/Kk.Body"
+        android:textColor="@color/miss"
+        android:textStyle="bold" />
+</LinearLayout>

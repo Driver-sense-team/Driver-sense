@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 경로 코치: 내비에서 목적지를 찍으면 그 경로를 따라 코치한다 (RouteCoach.kt). -->
+<resources>
+    <!-- 경로 미리보기 (출발 전, 기어 P) -->
+    <string name="route_preview_title">경로 미리보기</string>
+    <string name="route_preview_destination">%1$s까지 %2$s</string>
+    <string name="route_preview_destination_only">%1$s까지</string>
+    <string name="route_preview_points">이번 경로에서 코치할 곳</string>
+    <string name="route_preview_points_count">%d곳</string>
+    <string name="route_preview_no_points">회전 안내가 아직 없어요</string>
+    <string name="route_preview_weak_today">오늘 놓친 유형</string>
+    <string name="route_preview_weak_diagnosis">진단에서 약했던 유형</string>
+    <string name="route_preview_weak_none">자주 놓친 유형</string>
+    <string name="route_preview_weak_empty">아직 놓친 기록이 없어요</string>
+    <string name="route_preview_weak_on_route">이번 경로에 %d번 나와요. 그때마다 미리 알려줄게요</string>
+    <string name="route_preview_weak_not_on_route">이번 경로에는 나오지 않아요</string>
+    <string name="route_preview_sequence">경로 순서</string>
+    <string name="route_preview_start">출발</string>
+    <string name="route_preview_end">도착</string>
+    <string name="route_preview_hint">기어를 D로 바꾸면 코치를 시작해요</string>
+    <string name="route_preview_depart">출발</string>
+
+    <!-- 경로 리포트 (경로가 끝난 뒤 기어 P) -->
+    <string name="route_report_title">%s 경로 리포트</string>
+    <string name="route_report_missed">이번 경로에서 놓친 곳</string>
+    <string name="route_report_missed_count">%d곳</string>
+    <string name="route_report_missed_none_hint">놓친 곳 없이 도착했어요</string>
+    <string name="route_report_missed_hint">다음에 같은 곳을 지나면 미리 알려줄게요</string>
+    <string name="route_report_kept_count">✓ 지킨 곳 %d곳</string>
+    <string name="route_report_saved">안내 듣고 지켜서 아낀 범칙금 %s</string>
+    <string name="route_report_timeline">잘못한 점부터 보여줘요</string>
+    <string name="route_report_empty">이번 경로에는 판정이 없어요</string>
+    <string name="route_report_ask">AI에게 묻기</string>
+
+    <!-- 경로 데모 목적지 검색 (지도 위 검색창) -->
+    <string name="route_search_hint">목적지 검색</string>
+    <string name="route_search_from">출발 %s (현재 위치)</string>
+    <string name="route_search_empty">검색 결과가 없어요</string>
+    <!-- 빨리 감는 구간의 지도 속도 표시 -->
+    <string name="route_map_speed_fast">%d km/h ▶▶ 빨리 감기</string>
+
+    <!-- 경로 데모 지도 왼쪽 아래 속도 -->
+    <string name="route_map_speed">%d km/h</string>
+
+    <!-- 데모 패널 -->
+    <string name="demo_route">경로 데모 (목적지 검색 → 도착)</string>
+</resources>

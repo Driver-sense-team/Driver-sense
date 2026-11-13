@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  교정 진행 화면의 습관 카드 한 장 (HabitProgress 하나).
+  위: 습관 이름과 단계 칩(교정 → 유지 → 졸업). 가운데: 최근 10번 중 지킨 수.
+  아래: 졸업까지 진행 막대(4칸: 유지 들어가기 1칸 + 유지 1주마다 1칸)와 다음 단계 문구.
+  칩·막대 칸은 ProgressScreen이 코드에서 넣고 칠한다.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Kk.Card"
+    android:layout_width="0dp"
+    android:layout_weight="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/habitProgressName"
+            style="@style/Kk.Body"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/habitProgressStages"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/kk_gap"
+        android:gravity="bottom"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/habitProgressFraction"
+            style="@style/Kk.Display" />
+
+        <TextView
+            android:id="@+id/habitProgressRecent"
+            style="@style/Kk.Caption"
+            android:layout_marginStart="@dimen/kk_gap"
+            android:layout_marginBottom="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/habitProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="@dimen/kk_gap"
+        android:orientation="horizontal" />
+
+    <TextView
+        android:id="@+id/habitProgressNext"
+        style="@style/Kk.Caption"
+        android:layout_marginTop="12dp"
+        android:textStyle="bold" />
+</LinearLayout>

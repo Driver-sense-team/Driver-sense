@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="320" viewBox="0 0 1280 320" role="img" aria-label="동작 흐름: 진단, 코치, 리포트, 법규 Q&amp;A">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0E1B33"/>
+      <stop offset="1" stop-color="#123A8C"/>
+    </linearGradient>
+    <filter id="sh" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#FFFFFF"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: Pretendard, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Segoe UI", sans-serif; fill: #111418; }
+    .t { font-size: 28px; font-weight: 800; }
+    .w { font-size: 15px; font-weight: 800; }
+    .d { font-size: 17px; font-weight: 600; }
+  </style>
+
+  <rect width="1280" height="320" rx="24" fill="url(#bg)"/>
+
+  <!-- 1 진단 (파랑) -->
+  <g transform="translate(45 40)" filter="url(#sh)">
+    <rect width="260" height="240" rx="20" fill="#4C8DFF"/>
+    <circle cx="48" cy="62" r="28" fill="#FFFFFF"/>
+    <rect x="34" y="66" width="7" height="12" rx="2" fill="#1F5FD1"/>
+    <rect x="45" y="56" width="7" height="22" rx="2" fill="#1F5FD1"/>
+    <rect x="56" y="46" width="7" height="32" rx="2" fill="#1F5FD1"/>
+    <text x="90" y="56" class="w">1 · 기어 P</text>
+    <text x="90" y="86" class="t">진단</text>
+    <text x="24" y="146" class="d">상황별 준수율을</text>
+    <text x="24" y="172" class="d">전국 평균과 견주고</text>
+    <text x="24" y="198" class="d">약한 습관을 찾는다</text>
+  </g>
+
+  <line x1="311" y1="160" x2="349" y2="160" stroke="#FFFFFF" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <!-- 2 코치 (노랑) -->
+  <g transform="translate(355 40)" filter="url(#sh)">
+    <rect width="260" height="240" rx="20" fill="#FFC04D"/>
+    <circle cx="48" cy="62" r="28" fill="#FFFFFF"/>
+    <path d="M55 75 V56 H38" fill="none" stroke="#111418" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M44 48 L35 56 L44 64" fill="none" stroke="#111418" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="90" y="56" class="w">2 · 주행 중</text>
+    <text x="90" y="86" class="t">코치</text>
+    <text x="24" y="146" class="d">판정 지점 몇 초 전,</text>
+    <text x="24" y="172" class="d">깜빡이가 꺼져 있으면</text>
+    <text x="24" y="198" class="d">음성 한 문장 + 카드</text>
+  </g>
+
+  <line x1="621" y1="160" x2="659" y2="160" stroke="#FFFFFF" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <!-- 3 리포트 (빨강) -->
+  <g transform="translate(665 40)" filter="url(#sh)">
+    <rect width="260" height="240" rx="20" fill="#FF6B6B"/>
+    <circle cx="48" cy="62" r="28" fill="#FFFFFF"/>
+    <rect x="36" y="45" width="24" height="32" rx="4" fill="none" stroke="#C02B2B" stroke-width="3"/>
+    <path d="M41 62 L46 67 L55 56" fill="none" stroke="#C02B2B" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="90" y="56" class="w">3 · 기어 P</text>
+    <text x="90" y="86" class="t">리포트</text>
+    <text x="24" y="146" class="d">놓친 곳과 지킨 곳,</text>
+    <text x="24" y="172" class="d">법 조항과 처분,</text>
+    <text x="24" y="198" class="d">아낀 범칙금</text>
+  </g>
+
+  <line x1="931" y1="160" x2="969" y2="160" stroke="#FFFFFF" stroke-width="4" marker-end="url(#arrow)"/>
+
+  <!-- 4 법규 Q&A (초록) -->
+  <g transform="translate(975 40)" filter="url(#sh)">
+    <rect width="260" height="240" rx="20" fill="#22C55E"/>
+    <circle cx="48" cy="62" r="28" fill="#FFFFFF"/>
+    <path d="M33 50 a6 6 0 0 1 6 -6 h18 a6 6 0 0 1 6 6 v14 a6 6 0 0 1 -6 6 h-10 l-8 7 v-7 a6 6 0 0 1 -6 -6 z" fill="#15803D"/>
+    <text x="48" y="63" text-anchor="middle" font-size="17" font-weight="800" style="fill:#FFFFFF">?</text>
+    <text x="90" y="56" class="w">4 · 기어 P</text>
+    <text x="90" y="86" class="t">법규 Q&amp;A</text>
+    <text x="24" y="146" class="d">룰 테이블 근거로만</text>
+    <text x="24" y="172" class="d">답하고, 조항·처분·</text>
+    <text x="24" y="198" class="d">출처를 함께 보여준다</text>
+  </g>
+</svg>

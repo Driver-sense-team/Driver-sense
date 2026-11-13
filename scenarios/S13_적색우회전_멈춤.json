@@ -1,0 +1,20 @@
+{
+  "name": "S13_적색우회전_멈춤",
+  "description": "적색 우회전. 깜빡이는 처음부터 켰고, 안내 듣고 정지선 앞에서 멈췄다가 우회전. R1·R3 모두 지킴.",
+  "expect": [
+    {"type": "GUIDE", "t": 4000, "rule": "R3"},
+    {"type": "EVENT", "t": 14000, "rule": "R1", "result": "KEPT", "guided": false},
+    {"type": "EVENT", "t": 14000, "rule": "R3", "result": "KEPT", "guided": true}
+  ],
+  "frames": [
+    {"t": 0, "speedKph": 40.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "RIGHT", "brake": false, "lat": 37.55, "lon": 127.07, "headingDeg": 90.0, "tbt": {"turn": "RIGHT", "distanceM": 120}, "light": {"phase": "RED", "remainSec": null}},
+    {"t": 2000, "speedKph": 38.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "RIGHT", "brake": false, "lat": 37.55, "lon": 127.0702, "headingDeg": 90.0, "tbt": {"turn": "RIGHT", "distanceM": 90}, "light": {"phase": "RED", "remainSec": null}},
+    {"t": 4000, "speedKph": 32.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "RIGHT", "brake": false, "lat": 37.55, "lon": 127.0704, "headingDeg": 90.0, "tbt": {"turn": "RIGHT", "distanceM": 60}, "light": {"phase": "RED", "remainSec": null}},
+    {"t": 6000, "speedKph": 20.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "RIGHT", "brake": false, "lat": 37.55, "lon": 127.0706, "headingDeg": 90.0, "tbt": {"turn": "RIGHT", "distanceM": 40}, "light": {"phase": "RED", "remainSec": null}},
+    {"t": 7000, "speedKph": 10.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "RIGHT", "brake": false, "lat": 37.55, "lon": 127.0708, "headingDeg": 90.0, "tbt": {"turn": "RIGHT", "distanceM": 28}, "light": {"phase": "RED", "remainSec": null}},
+    {"t": 8000, "speedKph": 0.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "RIGHT", "brake": true, "lat": 37.55, "lon": 127.071, "headingDeg": 90.0, "tbt": {"turn": "RIGHT", "distanceM": 25}, "light": {"phase": "RED", "remainSec": null}},
+    {"t": 10000, "speedKph": 0.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "RIGHT", "brake": true, "lat": 37.55, "lon": 127.0712, "headingDeg": 90.0, "tbt": {"turn": "RIGHT", "distanceM": 25}, "light": {"phase": "RED", "remainSec": null}},
+    {"t": 12000, "speedKph": 10.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "RIGHT", "brake": false, "lat": 37.55, "lon": 127.0714, "headingDeg": 100.0, "tbt": {"turn": "RIGHT", "distanceM": 15}, "light": {"phase": "RED", "remainSec": null}},
+    {"t": 14000, "speedKph": 15.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "RIGHT", "brake": false, "lat": 37.55, "lon": 127.0716, "headingDeg": 150.0, "tbt": {"turn": "STRAIGHT", "distanceM": 500}, "light": null}
+  ]
+}

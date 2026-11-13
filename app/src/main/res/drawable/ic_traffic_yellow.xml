@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 적색 우회전 안내의 신호등 (노란불). 위부터 빨강·노랑·초록 칸. 여러 색이라 코드에서 tint를 입히지 않는다. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@color/ink_strong"
+        android:pathData="M8,1 h8 a2,2 0 0 1 2,2 v18 a2,2 0 0 1 -2,2 h-8 a2,2 0 0 1 -2,-2 v-18 a2,2 0 0 1 2,-2 Z" />
+    <path
+        android:fillColor="@color/lamp_off"
+        android:pathData="M12,3.4 a2.6,2.6 0 1,0 0.01,0 Z" />
+    <path
+        android:fillColor="@color/lamp_yellow"
+        android:pathData="M12,9.4 a2.6,2.6 0 1,0 0.01,0 Z" />
+    <path
+        android:fillColor="@color/lamp_off"
+        android:pathData="M12,15.4 a2.6,2.6 0 1,0 0.01,0 Z" />
+</vector>

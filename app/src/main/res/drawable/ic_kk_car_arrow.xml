@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 지도 위 내 차: 파란 원 안의 흰 화살표 (진행 방향이 위). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="56dp"
+    android:height="56dp"
+    android:viewportWidth="56"
+    android:viewportHeight="56">
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M28,2a26,26 0 1,0 0.01,0z" />
+    <path
+        android:fillColor="#4C8DFF"
+        android:pathData="M28,6a22,22 0 1,0 0.01,0z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M28,13 L40,40 L28,34 L16,40 Z" />
+</vector>

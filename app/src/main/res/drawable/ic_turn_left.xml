@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 좌회전 화살표 (Material Icons "turn_left", Apache 2.0). 우회전은 코드에서 좌우로 뒤집어 쓴다. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M6.83,11l1.59,1.59L7,14l-4,-4 4,-4 1.41,1.41L6.83,9H15c1.1,0 2,0.9 2,2v9h-2v-9H6.83z" />
+</vector>

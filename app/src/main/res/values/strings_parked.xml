@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 기어 P 정차 화면(리포트·진단) 개편 문구. 기존 strings.xml의 report_*, diagnose_*도 그대로 쓴다. -->
+<resources>
+    <!-- 오늘 주행 리포트 (흰 배경) -->
+    <string name="parked_report_summary">%1$d번 중 %2$d번 지켰어요</string>
+    <string name="parked_report_summary_saved">%1$d번 중 %2$d번 지켰어요. 안내 덕분에 범칙금 %3$s을 아꼈어요</string>
+    <string name="parked_report_summary_empty">아직 판정이 없어요. 출발하면 코치 화면으로 돌아가요</string>
+    <string name="parked_report_kept_caption">지킴률 %d%%</string>
+    <string name="parked_report_missed_caption">놓친 상황은 다음 주행에서 미리 알려드려요</string>
+    <string name="parked_report_missed_none">놓친 판정이 없어요</string>
+    <string name="parked_report_saved_caption">안내 듣고 지킨 판정 기준</string>
+    <string name="parked_report_none_caption">판정이 쌓이면 보여드려요</string>
+    <string name="parked_report_count">%d 번</string>
+    <string name="parked_report_kept_chip">✓ 지킴</string>
+    <string name="parked_report_missed_chip">! 놓침</string>
+    <string name="parked_report_timeline">판정 기록</string>
+    <string name="parked_report_list_hint">최근 판정이 위에 있어요</string>
+    <string name="parked_report_empty_hint">기어를 D로 두고 달리면 회전할 때마다 여기에 기록돼요</string>
+
+    <!-- 진단 리포트 -->
+    <string name="parked_diagnose_below">평균보다 낮음</string>
+    <string name="parked_diagnose_above">평균 이상</string>
+    <string name="parked_diagnose_average_legend">전국 평균 %s%%</string>
+
+</resources>

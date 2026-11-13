@@ -1,0 +1,12 @@
+{
+  "name": "S21_후진후_회전",
+  "description": "후진 뒤 30초 안의 회전은 주차장으로 보고 판정하지 않음.",
+  "expect": [
+  ],
+  "frames": [
+    {"t": 0, "speedKph": 5.0, "gear": "R", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.07, "headingDeg": 90.0, "tbt": null, "light": null},
+    {"t": 4000, "speedKph": 10.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.5501, "lon": 127.0701, "headingDeg": 90.0, "tbt": null, "light": null},
+    {"t": 6000, "speedKph": 12.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.5502, "lon": 127.0702, "headingDeg": 60.0, "tbt": null, "light": null},
+    {"t": 8000, "speedKph": 10.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.5503, "lon": 127.0703, "headingDeg": 20.0, "tbt": null, "light": null}
+  ]
+}

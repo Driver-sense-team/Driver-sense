@@ -1,0 +1,19 @@
+{
+  "name": "S29_같은방향_연속_30m놓침",
+  "description": "같은 방향 좌회전 두 번. 첫 회전의 30m 프레임이 오지 않고 TBT 거리가 다시 커짐. 새 회전으로 보고 다시 안내한다.",
+  "expect": [
+    {"type": "GUIDE", "t": 4000, "rule": "R1"},
+    {"type": "GUIDE", "t": 10000, "rule": "R1"},
+    {"type": "EVENT", "t": 14000, "rule": "R1", "result": "MISSED", "guided": true}
+  ],
+  "frames": [
+    {"t": 0, "speedKph": 40.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.07, "headingDeg": 90.0, "tbt": {"turn": "LEFT", "distanceM": 120}, "light": null},
+    {"t": 2000, "speedKph": 38.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.0702, "headingDeg": 90.0, "tbt": {"turn": "LEFT", "distanceM": 90}, "light": null},
+    {"t": 4000, "speedKph": 32.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.0704, "headingDeg": 90.0, "tbt": {"turn": "LEFT", "distanceM": 60}, "light": null},
+    {"t": 6000, "speedKph": 26.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.0706, "headingDeg": 90.0, "tbt": {"turn": "LEFT", "distanceM": 35}, "light": null},
+    {"t": 8000, "speedKph": 25.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.0708, "headingDeg": 30.0, "tbt": {"turn": "LEFT", "distanceM": 90}, "light": null},
+    {"t": 10000, "speedKph": 30.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.55, "lon": 127.071, "headingDeg": 30.0, "tbt": {"turn": "LEFT", "distanceM": 60}, "light": null},
+    {"t": 12000, "speedKph": 22.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.5512, "lon": 127.0712, "headingDeg": 30.0, "tbt": {"turn": "LEFT", "distanceM": 28}, "light": null},
+    {"t": 14000, "speedKph": 15.0, "gear": "D", "steeringDeg": 0.0, "turnSignal": "OFF", "brake": false, "lat": 37.5514, "lon": 127.0714, "headingDeg": 330.0, "tbt": {"turn": "STRAIGHT", "distanceM": 500}, "light": null}
+  ]
+}

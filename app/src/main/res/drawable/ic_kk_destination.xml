@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 지도 위 목적지 핀. 아래 끝이 목적지 좌표다. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="52dp"
+    android:viewportWidth="40"
+    android:viewportHeight="52">
+    <path
+        android:fillColor="#FF6B6B"
+        android:pathData="M20,0C9,0 0,9 0,20c0,15 20,32 20,32s20,-17 20,-32C40,9 31,0 20,0z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M20,13a7,7 0 1,0 0.01,0z" />
+</vector>

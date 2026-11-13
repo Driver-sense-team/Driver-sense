@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  교정 진행·주간 코칭 (기획서 UI-4, F6·F7). 기어 P일 때만 보인다.
+  위: 습관별 졸업 진행 카드(progress_habit_card.xml)를 나란히.
+  아래 왼쪽: 이번 주 준수율 7일 막대(가로선 = 진단 때 준수율), 안내 후 지킴, 아낀 범칙금.
+  아래 오른쪽: AI 코칭 문장과 다음 주 집중 포인트, 자주 놓친 곳 Top 3(progress_missed_row.xml).
+  카드 배경과 막대는 ProgressScreen이 코드에서 칠하고 채운다.
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/progressScreen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:visibility="gone">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/kk_screen_padding">
+
+        <TextView
+            style="@style/Kk.Title"
+            android:text="@string/progress_title" />
+
+        <TextView
+            android:id="@+id/progressPeriod"
+            style="@style/Kk.Caption" />
+
+        <!-- 습관별 졸업 진행 카드 (1~2장) -->
+        <LinearLayout
+            android:id="@+id/progressHabits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/kk_gap_large"
+            android:orientation="horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/kk_gap"
+            android:baselineAligned="false"
+            android:orientation="horizontal">
+
+            <!-- ===== 왼쪽: 이번 주 준수율 ===== -->
+            <LinearLayout
+                android:id="@+id/progressWeekCard"
+                style="@style/Kk.Card"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/Kk.Caption"
+                    android:text="@string/progress_week_rate" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/progressWeekPercent"
+                        style="@style/Kk.Display" />
+
+                    <TextView
+                        android:id="@+id/progressChange"
+                        style="@style/Kk.Pill"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="@dimen/kk_gap" />
+                </LinearLayout>
+
+                <!-- 막대 위 퍼센트 -->
+                <LinearLayout
+                    android:id="@+id/progressBarPercents"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/kk_gap_large"
+                    android:orientation="horizontal" />
+
+                <!-- 막대 7개와 진단 기준선. 기준선은 weight로 높이를 맞춘다 (위 = 100 - 진단%, 아래 = 진단%). -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginTop="8dp">
+
+                    <LinearLayout
+                        android:id="@+id/progressBars"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <Space
+                            android:id="@+id/progressLineAbove"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="3dp"
+                            android:background="@color/text" />
+
+                        <Space
+                            android:id="@+id/progressLineBelow"
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp" />
+                    </LinearLayout>
+                </FrameLayout>
+
+                <!-- 막대 아래 요일 -->
+                <LinearLayout
+                    android:id="@+id/progressBarDays"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal" />
+
+                <TextView
+                    android:id="@+id/progressLineLegend"
+                    style="@style/Kk.Caption"
+                    android:layout_marginTop="8dp" />
+
+                <!-- 안내 후 지킴, 아낀 범칙금 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/kk_gap_large"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/progressConversionTile"
+                        style="@style/Kk.Card"
+                        android:layout_width="0dp"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/Kk.Caption"
+                            android:text="@string/progress_guide_conversion" />
+
+                        <TextView
+                            android:id="@+id/progressConversion"
+                            style="@style/Kk.Display" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/progressSavedTile"
+                        style="@style/Kk.Card"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="@dimen/kk_gap"
+                        android:layout_weight="1">
+
+                        <TextView
+                            style="@style/Kk.Caption"
+                            android:text="@string/progress_saved" />
+
+                        <TextView
+                            android:id="@+id/progressSaved"
+                            style="@style/Kk.Display" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ===== 오른쪽: 코칭과 놓친 곳 ===== -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/kk_gap"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/progressCoachCard"
+                    style="@style/Kk.Card">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/progressCoachIcon"
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:contentDescription="@null"
+                            android:padding="12dp"
+                            android:src="@drawable/ic_coach_spark"
+                            android:tint="@color/ok" />
+
+                        <TextView
+                            style="@style/Kk.Caption"
+                            android:layout_marginStart="12dp"
+                            android:text="@string/progress_coaching"
+                            android:textColor="@color/text"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/progressCoaching"
+                        style="@style/Kk.Body"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="12dp"
+                        android:lineBreakWordStyle="phrase" />
+
+                    <!-- 다음 주 집중 포인트: 할 일이라 주황 -->
+                    <LinearLayout
+                        android:id="@+id/progressFocusBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/kk_gap"
+                        android:orientation="vertical"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="14dp">
+
+                        <TextView
+                            style="@style/Kk.Caption"
+                            android:text="@string/progress_next_focus"
+                            android:textColor="@color/warn"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/progressFocus"
+                            style="@style/Kk.Body"
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="4dp"
+                            android:lineBreakWordStyle="phrase"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/progressMissedCard"
+                    style="@style/Kk.Card"
+                    android:layout_marginTop="@dimen/kk_gap">
+
+                    <TextView
+                        style="@style/Kk.Caption"
+                        android:text="@string/progress_missed" />
+
+                    <LinearLayout
+                        android:id="@+id/progressMissed"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

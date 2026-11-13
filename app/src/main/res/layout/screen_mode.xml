@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  운전 코치 켬/끔. 기어 P일 때만 보인다.
+  큰 스위치 카드 하나: 운전대 아이콘, "코치 켜짐/꺼짐", 설명, 오른쪽 켬/끔 스위치.
+  카드 어디를 눌러도 바뀐다. 색과 배경은 ModeScreen이 칠한다.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/modeScreen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/kk_screen_padding"
+    android:visibility="gone">
+
+    <TextView
+        style="@style/Kk.Title"
+        android:layout_marginTop="56dp"
+        android:text="@string/nav_mode_title" />
+
+    <TextView
+        style="@style/Kk.Caption"
+        android:layout_marginTop="8dp"
+        android:text="@string/mode_hint" />
+
+    <LinearLayout
+        android:id="@+id/modeCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/kk_gap_large"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="48dp">
+
+        <ImageView
+            android:id="@+id/modeIcon"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:importantForAccessibility="no"
+            android:padding="32dp"
+            android:src="@drawable/ic_coach_wheel" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/modeTitle"
+                style="@style/Kk.Display" />
+
+            <TextView
+                android:id="@+id/modeDesc"
+                style="@style/Kk.Body"
+                android:layout_marginTop="@dimen/kk_gap" />
+
+            <TextView
+                android:id="@+id/modeDetail"
+                style="@style/Kk.Caption"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <!-- 스위치: 알약 모양 칸 안에서 동그라미가 켬이면 오른쪽, 끔이면 왼쪽. -->
+        <FrameLayout
+            android:id="@+id/modeTrack"
+            android:layout_width="220dp"
+            android:layout_height="112dp"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/modeThumb"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:gravity="center"
+                android:textSize="@dimen/kk_text_body"
+                android:textStyle="bold" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/modeRecords"
+        style="@style/Kk.Body"
+        android:layout_marginTop="@dimen/kk_gap_large" />
+</LinearLayout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  법규 Q&amp;A (UI-5, F8). 기어 P일 때만 보인다.
+  위에서부터: 제목 → 질문 입력칸 + 마이크 + 묻기 → 추천 질문 칩 → 답변 카드(답 2~3문장 + 근거 카드).
+  칩과 근거 카드(qna_source_card.xml)는 QnaScreen이 코드로 넣는다. 배경 색도 코드에서 Ui.kt로 칠한다.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/qnaScreen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/kk_screen_padding"
+    android:paddingTop="56dp"
+    android:paddingBottom="@dimen/kk_screen_padding"
+    android:visibility="gone">
+
+    <TextView
+        style="@style/Kk.Title"
+        android:text="@string/nav_qna_title" />
+
+    <TextView
+        style="@style/Kk.Caption"
+        android:layout_marginTop="4dp"
+        android:text="@string/qna_subtitle" />
+
+    <!-- 질문 줄: 입력칸(넓게) + 마이크 + 묻기 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_marginTop="@dimen/kk_gap_large"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/qnaInput"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:hint="@string/qna_hint"
+            android:imeOptions="actionSearch|flagNoExtractUi"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:selectAllOnFocus="true"
+            android:paddingHorizontal="@dimen/kk_gap_large"
+            android:singleLine="true"
+            android:textColor="@color/text"
+            android:textColorHint="@color/muted"
+            android:textSize="@dimen/kk_text_body" />
+
+        <ImageButton
+            android:id="@+id/qnaMic"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_marginStart="@dimen/kk_gap"
+            android:contentDescription="@string/qna_mic"
+            android:padding="22dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_mic"
+            android:tint="@color/muted" />
+
+        <TextView
+            android:id="@+id/qnaAsk"
+            style="@style/Kk.Pill"
+            android:layout_height="88dp"
+            android:layout_marginStart="@dimen/kk_gap"
+            android:paddingHorizontal="40dp"
+            android:text="@string/qna_ask"
+            android:textColor="@color/on_accent"
+            android:textSize="@dimen/kk_text_body" />
+    </LinearLayout>
+
+    <!-- 추천 질문 칩. 모두 룰 테이블에 근거가 있는 질문 (LawQnaTest). -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/kk_gap"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:id="@+id/qnaChips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+
+    <!-- 답. 질문 전에는 안내 한 줄만 보인다. -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/kk_gap_large"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/qnaEmpty"
+                style="@style/Kk.Caption"
+                android:layout_marginTop="@dimen/kk_gap"
+                android:text="@string/qna_empty" />
+
+            <LinearLayout
+                android:id="@+id/qnaAnswerCard"
+                style="@style/Kk.Card"
+                android:visibility="gone">
+
+                <!-- 아이콘(근거 있음 = 파랑 책, 없음 = 회색 i) + 받은 질문 + 해석 갈림 표시 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/qnaAnswerIcon"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:importantForAccessibility="no"
+                        android:padding="12dp" />
+
+                    <TextView
+                        android:id="@+id/qnaQuestion"
+                        style="@style/Kk.Caption"
+                        android:layout_width="0dp"
+                        android:layout_marginStart="@dimen/kk_gap"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/qnaDisputed"
+                        style="@style/Kk.Pill"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="@dimen/kk_gap"
+                        android:paddingHorizontal="20dp"
+                        android:text="@string/qna_disputed"
+                        android:textColor="@color/warn"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/qnaAnswerText"
+                    style="@style/Kk.Body"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/kk_gap"
+                    android:lineSpacingExtra="8dp" />
+
+                <TextView
+                    android:id="@+id/qnaSourcesLabel"
+                    style="@style/Kk.Caption"
+                    android:layout_marginTop="@dimen/kk_gap_large"
+                    android:text="@string/qna_sources" />
+
+                <!-- 근거 카드가 나란히 (최대 2개) -->
+                <LinearLayout
+                    android:id="@+id/qnaSources"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/kk_gap"
+                    android:orientation="horizontal" />
+            </LinearLayout>
+        </FrameLayout>
+    </ScrollView>
+</LinearLayout>

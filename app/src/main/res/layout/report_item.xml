@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  판정 기록 한 줄. 왼쪽에서 오른쪽으로 읽는 순서:
+    시간 | 상황(굵게) + 한 줄 설명 | 결과 칩(✓ 지킴 파랑 / ! 놓침 빨강)
+           조항 · 처분 (상황 아래 줄, 같은 들여쓰기)
+  색은 ReportScreen.kt에서 칠한다.
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingVertical="28dp">
+
+    <!-- 시간. 고정 폭이라 줄마다 상황 글자가 같은 자리에서 시작한다. -->
+    <TextView
+        android:id="@+id/itemTime"
+        style="@style/Kk.Body"
+        android:layout_width="120dp"
+        android:fontFeatureSettings="tnum"
+        android:textColor="@color/muted" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/itemTitle"
+            style="@style/Kk.Body"
+            android:textColor="@color/text"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/itemDetail"
+            style="@style/Kk.Caption"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/muted" />
+
+        <!-- 조항. 룰 테이블에 없으면 숨긴다. -->
+        <TextView
+            android:id="@+id/itemArticle"
+            style="@style/Kk.Caption"
+            android:layout_marginTop="14dp"
+            android:textColor="@color/text" />
+
+        <!-- 처분. 놓침이면 빨강. -->
+        <TextView
+            android:id="@+id/itemPenalty"
+            style="@style/Kk.Caption"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/muted" />
+    </LinearLayout>
+
+    <!-- 결과 칩: 기호 + 글자 -->
+    <TextView
+        android:id="@+id/itemResult"
+        style="@style/Kk.Pill"
+        android:layout_height="52dp"
+        android:layout_marginStart="@dimen/kk_gap_large"
+        android:paddingHorizontal="22dp" />
+</LinearLayout>

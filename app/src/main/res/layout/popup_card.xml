@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  내비 위에 잠깐 뜨는 안내 카드. 주행 화면 코치 카드(screen_drive.xml)와 같은 디자인 언어를 작게 줄였다:
+  [상태 색 원 + 방향 그림] [회전 이름(흐림) / 남은 거리(검정, 숫자 크게)] [상태 색 알약 "! 지금 켜세요" / "✓ 좋아요"] [레버 그림(켜야 할 때만)].
+  바탕은 흰색 95%(popup_light) + 굵은 상태 색 테두리 + 그림자. 내비 지도 위에서도 카드 경계가 또렷하게 한다.
+  바깥 FrameLayout의 여백은 그림자가 겹침 창 밖으로 잘리지 않게 두는 자리다. 색은 코드에서 칠한다. 터치는 받지 않는다.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:clipToPadding="false"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:id="@+id/popupCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="16dp"
+        android:gravity="center_vertical"
+        android:minWidth="560dp"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="28dp"
+        android:paddingBottom="20dp">
+
+        <!-- 방향 그림: 상태 색 원 안에 검정 그림. 가장 먼저 눈에 띄는 것. -->
+        <ImageView
+            android:id="@+id/popupIcon"
+            android:layout_width="104dp"
+            android:layout_height="104dp"
+            android:contentDescription="@null"
+            android:padding="18dp"
+            android:src="@drawable/ic_turn_left" />
+
+        <!-- 무엇을: 회전 이름 + 남은 거리 -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/popupTurn"
+                style="@style/Kk.Body"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/ink_soft"
+                android:textStyle="bold" />
+
+            <!-- 숫자는 크게 검정, 단위(m)는 작고 흐리게 (distanceText). 거리가 없는 안내는 숨긴다. -->
+            <TextView
+                android:id="@+id/popupDistance"
+                style="@style/Kk.Display"
+                android:layout_marginTop="4dp"
+                android:maxLines="1"
+                android:textColor="@color/ink_strong" />
+        </LinearLayout>
+
+        <!-- 지금 할 일: 상태 색 알약에 검정 글자 -->
+        <LinearLayout
+            android:id="@+id/popupBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingVertical="12dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="28dp">
+
+            <ImageView
+                android:id="@+id/popupBadgeIcon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_alert" />
+
+            <TextView
+                android:id="@+id/popupHeadline"
+                style="@style/Kk.Title"
+                android:includeFontPadding="false"
+                android:maxLines="1"
+                android:textColor="@color/ink_strong" />
+        </LinearLayout>
+
+        <!-- "어떻게 켜는지" 레버 그림. 레버를 쓰는 안내를 켜야 할 때만 보인다. -->
+        <kkam.app.LeverGuideView
+            android:id="@+id/popupLever"
+            android:layout_width="220dp"
+            android:layout_height="160dp"
+            android:layout_marginStart="24dp"
+            android:visibility="gone" />
+
+        <!-- "어떤 버튼을 누르는지" 그림 (ButtonGuide가 채운다). 김서림을 켜야 할 때만 보인다. -->
+        <LinearLayout
+            android:id="@+id/popupButtonGuide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:orientation="horizontal"
+            android:visibility="gone" />
+    </LinearLayout>
+</FrameLayout>

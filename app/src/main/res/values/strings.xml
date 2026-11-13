@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Driver Sense</string>
+
+    <!-- 주행 리포트 (기어 P) -->
+    <string name="report_title">오늘 주행 리포트</string>
+    <string name="report_saved">아낀 범칙금</string>
+    <string name="report_kept">지킴</string>
+    <string name="report_missed">놓침</string>
+    <string name="report_empty">오늘은 아직 판정이 없어요</string>
+    <string name="report_ask">AI에게 묻기 · 준비 중</string>
+
+    <!-- 진단 리포트 (기어 P) -->
+    <string name="diagnose_title">진단 리포트</string>
+    <string name="diagnose_rates">상황별 준수율</string>
+    <string name="diagnose_count">%2$d번 중 %1$d번 지킴</string>
+    <string name="demo_open_diagnose">진단 리포트 열기 (기어 P)</string>
+
+    <!-- 데모 패널 (debug 빌드 전용) -->
+    <string name="demo_open">데모</string>
+    <string name="demo_close">데모 닫기</string>
+    <string name="demo_title">데모 패널</string>
+    <string name="demo_subtitle">시연·개발용. 주행 화면에는 나오지 않아요</string>
+    <string name="demo_signals">차량 신호</string>
+    <string name="demo_logs">판정 기록</string>
+    <string name="demo_no_logs">아직 기록이 없어요</string>
+    <string name="demo_navi_after_play_off">재생하면 내비 띄우기: 끔</string>
+    <string name="demo_navi_after_play_on">재생하면 내비 띄우기: 켬</string>
+    <string name="demo_preview_start">안내 종류 미리보기</string>
+    <string name="demo_preview_now">미리보기: %s (누르면 다음)</string>
+
+    <!-- 주행 안내 상단 알림 (겹침 창 권한이 없을 때) -->
+    <string name="headsup_channel">주행 안내</string>
+    <string name="demo_notifier_popup">내비 위 안내: 팝업 카드</string>
+    <string name="demo_notifier_headsup">내비 위 안내: 상단 알림 (겹침 창 권한 없음)</string>
+    <string name="overlay_ask_title">내비 위에 안내를 띄울까요?</string>
+    <string name="overlay_ask_body">주행 중에는 내비가 화면에 떠 있어요. \"다른 앱 위에 표시\"를 허용하면 깜빡이 안내를 내비 위 작은 카드로 보여드려요. 허용하지 않으면 상단 알림으로 알려드려요.</string>
+    <string name="overlay_ask_open">설정 열기</string>
+    <string name="overlay_ask_later">나중에</string>
+
+    <!-- 주행 코치 서비스 알림 -->
+    <string name="service_channel">주행 코치</string>
+    <string name="service_running">주행 안내를 준비하고 있어요</string>
+
+    <!-- 기어 P 화면 왼쪽 레일 -->
+    <string name="nav_report">오늘 리포트</string>
+    <string name="nav_diagnose">진단</string>
+    <string name="nav_progress">교정 진행</string>
+    <string name="nav_qna">법규 Q&amp;A</string>
+    <string name="nav_mode">운전 코치</string>
+    <string name="nav_qna_title">법규 Q&amp;A</string>
+    <string name="nav_mode_title">운전 코치</string>
+</resources>

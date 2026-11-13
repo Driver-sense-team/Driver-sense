@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  화면 뼈대.
+  - routeMapPanel: 경로 데모 지도. 목적지 검색과 주행 화면일 때 screenSlot 대신 앱 칸 전체에 보이고, 안내는 지도 위 팝업 카드로 띄운다.
+    출발 전 경로 미리보기 때는 지도(경로선)와 미리보기 화면(screenSlot)을 반씩 보여준다.
+  - navRail: 기어 P 화면 왼쪽 레일(nav_rail). 리포트·진단·교정 진행·Q&A·모드를 오간다. 주행 화면에서는 숨긴다.
+  - screenSlot: 지금 보여줄 화면 하나가 들어가는 자리. 화면마다 담당 클래스(DriveScreen, ReportScreen,
+    DiagnoseScreen, ProgressScreen, QnaScreen, ModeScreen, RoutePreviewScreen, RouteReportScreen)가 자기 화면의 보이기를 정한다.
+  - demoPanel: 시연·개발용 패널(panel_demo). debug 빌드에서만 demoToggle로 연다.
+    주행 화면 레이아웃과 섞이지 않게 바깥에 둔다.
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <include
+            android:id="@+id/demoPanel"
+            layout="@layout/panel_demo"
+            android:layout_width="520dp"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <include layout="@layout/nav_rail" />
+
+        <!-- 경로 데모의 앱 안 지도 (RouteMap). 경로가 있고 주행 화면일 때만 보인다. 그때는 screenSlot을 숨겨 지도가 앱 칸 전체를 쓰고,
+             안내는 지도 위쪽 가운데 팝업 카드(MapPopupCard)로 띄운다. 지도 뷰와 카드는 코드에서 넣는다. -->
+        <FrameLayout
+            android:id="@+id/routeMapPanel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:visibility="gone">
+
+            <!-- 경로 데모 속도. 계기판에는 0 km/h를 보내므로(앱 화면이 가려지지 않게) 속도는 지도에 보여준다. -->
+            <TextView
+                android:id="@+id/routeMapSpeed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|start"
+                android:layout_marginStart="@dimen/kk_gap"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/bg_map_speed"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="8dp"
+                android:textColor="#0B0E13"
+                android:textSize="40sp"
+                android:textStyle="bold" />
+
+            <include layout="@layout/route_search" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/screenSlot"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <include
+                android:id="@+id/driveScreen"
+                layout="@layout/screen_drive" />
+
+            <include layout="@layout/screen_report" />
+
+            <include layout="@layout/screen_diagnose" />
+
+            <include layout="@layout/screen_progress" />
+
+            <include layout="@layout/screen_qna" />
+
+            <include layout="@layout/screen_mode" />
+
+            <include layout="@layout/screen_route_preview" />
+
+            <include layout="@layout/screen_route_report" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/demoToggle"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="32dp"
+        android:gravity="center"
+        android:paddingHorizontal="20dp"
+        android:text="@string/demo_open"
+        android:textColor="@color/muted"
+        android:textSize="20sp"
+        android:visibility="gone" />
+</FrameLayout>
